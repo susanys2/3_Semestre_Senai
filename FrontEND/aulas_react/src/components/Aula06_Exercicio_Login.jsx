@@ -5,20 +5,14 @@ const Aula06_Exercicio_Login = () => {
     const [senha, setSenha] = useState('')
     const [mensagem, setMensagem] = useState('')
 
-    const condicao = () => {
-        if (email =='senai@senai.br' && (senha == '123')){
-            return setMensagem (`Login Bem Sucedido! ✅`)
+    function condicao(){
+        if (email ='senai@senai.br' && (senha = 123)){
+            return `Login Bem Sucedido!`
         } else{
-            return setMensagem (`Email ou Senha Incorretos! ❌`)
+            return `Email ou Senha Incorretos!`
         }
            
         }
-
-    const sair = () => {
-        setEmail('')
-        setSenha('')
-        setMensagem('')
-    }
     
 
     return (
@@ -35,16 +29,10 @@ const Aula06_Exercicio_Login = () => {
 
             <div style={estilos.campos}>
                  <label style={estilos.label}>Senha</label>
-                 <input type='password' 
-                 onChange={(event) => setSenha(event.target.value)} 
-                 placeholder='Digite sua senha' style={estilos.input} value={senha}></input>
+                 <input type='password' placeholder='Digite sua senha' style={estilos.input}></input>
             </div>
 
-            <button style={estilos.botao} onClick={(condicao)}>Entrar</button>
-
-            <button style={estilos.botao} onClick={(sair)}>Limpar</button>
-            <hr></hr>
-            <p style={{fontStyle:'bold'}}>{mensagem}</p>
+            <button style={estilos.botao}>Entrar</button>
 
         </div>
 
