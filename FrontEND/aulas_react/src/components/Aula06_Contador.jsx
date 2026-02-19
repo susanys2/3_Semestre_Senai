@@ -5,9 +5,8 @@ const Aula06_Contador = () => {
     const [contador, setContador]= useState(0)
 
     function botaoDiminuir(){
-        setContador(contador-1)
-        if(contador < 0){
-             contador++;
+        if(contador > 0){
+            setContador(contador-1)
         }
     }
 

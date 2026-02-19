@@ -4,15 +4,22 @@ import { estilos } from "../style/Estilos"
 const Aula06_Exercicio_Login = () => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [mensagem, setMensagem] = useState('')
 
     function condicao(){
-        if (email ='senai@senai.br' && (senha = 123)){
-            return `Login Bem Sucedido!`
+        if (email =='senai@senai.br' && (senha == '123')){
+            return setMensagem `Login Bem Sucedido! ✅`
         } else{
-            return `Email ou Senha Incorretos!`
+            return setMensagem `Email ou Senha Incorretos! ❌`
         }
            
         }
+
+    function sair(){
+        setEmail('')
+        setSenha('')
+        setMensagem('')
+    }
     
 
     return (
@@ -27,10 +34,13 @@ const Aula06_Exercicio_Login = () => {
 
             <div style={estilos.campos}>
                  <label style={estilos.label}>Senha</label>
-                 <input type='password' placeholder='Digite sua senha' style={estilos.input}></input>
+                 <input type='password' onChange={(event) => setSenha(event.target.value)} placeholder='Digite sua senha' style={estilos.input}></input>
             </div>
 
-            <button style={estilos.botao}>Entrar</button>
+            <button style={estilos.botao} onClick={(condicao)}>Entrar</button>
+            <p>{mensagem}</p>
+
+            <button style={estilos.botao} onClick={(sair)}>Sair</button>
 
         </div>
 
