@@ -1,13 +1,11 @@
 import { useState } from "react"
 
-
 const Aula06_Contador = () => {
     const [contador, setContador]= useState(0)
 
     function botaoDiminuir(){
-        setContador(contador-1)
-        if(contador < 0){
-             contador++;
+        if(contador > 0){
+            setContador(contador-1)
         }
     }
 
@@ -23,7 +21,7 @@ const Aula06_Contador = () => {
     )
 }
 
-export default Aula06_Contador
+export default Aula06_Contador 
 
 //la no contador criamos uma arrow function pois so temos uma função
 //la no useState temos o valor vazio, caso nao queiramos nenhum valor 

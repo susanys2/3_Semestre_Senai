@@ -6,6 +6,7 @@ import Aula04_Props from "./components/Aula04_Props";
 import { estilos } from "./style/Estilos";
 import Aula05_Eventos from "./components/Aula05_Eventos";
 import Aula06 from "./components/Aula06";
+import Aula07 from "./components/Aula07";
 
 const App = () => { //o return so consegue enviar um elemento pai, sem essa div
   //agora aqui nos vamos incluir o componente que nos criamos
@@ -23,6 +24,7 @@ const App = () => { //o return so consegue enviar um elemento pai, sem essa div
           <Aula04_Props/>
           <Aula05_Eventos/> 
           <Aula06/>
+          <Aula07/> 
         </div>
     </main>   
   </div>

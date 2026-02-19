@@ -8,6 +8,13 @@ const Aula06_Exercicio_Placar = () => {
     const [contador3, setContador3] = useState(0)
     const [contador4, setContador4] = useState(0)
 
+function botaoZerar(){
+    setContador1(0)
+    setContador2(0)
+    setContador3(0)
+    setContador4(0)
+}
+
     return (
         <div style={estilos.cardAula}>
             <h1>Contador dos Times ⚽</h1>
@@ -19,6 +26,7 @@ const Aula06_Exercicio_Placar = () => {
             <h2>Time 2 - Corinthians</h2>
             <h3>{contador2}</h3>
             <button onClick={() => setContador2(contador2 + 1)}>+1 Ponto</button>
+            <button onClick={(botaoZerar)}>Zerar</button>
             <hr></hr>
 
             <h1>Contador de Jogo de Basquete 🏀</h1>
