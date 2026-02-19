@@ -147,33 +147,28 @@
         <div class="card">
             <h1>Ranking de Jogadores</h1>
             <!-- Listando Jogadores -->
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Pontuação</th>
-                        <th>Nível</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <% jogadores.forEach(J=> { %>
+    
+                <% jogadores.forEach(j=> { %>
                     <div class="item">
                         <div>
                             <strong>
-                                <%= J.resumo() %>
+                                <%= j.resumo() %>
                             </strong>
                             <small class="badge">
-                                <%= J.verificarPontuacao() %>
+                                <%= j.nivel() %>
                             </small>
-                            <% if(J.adicionado) { %>
-                                <small class="badge lido">Já Adicionado</small>
-                                <% } %>
+                                <div class="muted">
+                                    <%= j.pontuacao %> Pontuação
+                                </div>
+                              
+                               
                         </div>
 
                         <div class="actions">
-                            <form action="/jogadores/adicionado" method="post" style="display: inline;">
-                                <input type="hidden" name="id" value="<%= J.id %>" />
-                                <button class="warning" <%=J.adicionado ? 'disabled' : '' %>>
-                                    <%= J.adicionado ? 'Adicionar pontos' : '+ 10pts' %>
+                            <form action="/jogadores/adicionar-ponto" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="<%= j.id %>" />
+                                <button class="warning">
+                                    +50
                                 </button>
                             </form>
                         </div>
@@ -181,13 +176,13 @@
                     <% }) %>
         </div>
 
-        <!--Codigo de adicionar  livros  -->
-        <!-- //Adicionando livros -->
+        <!--Codigo de adicionar Jogadores  -->
+        <!-- //Adicionando Jogadores -->
 
         <h2 style="text-align:center; margin: 8px 0 12px;">Adicionar Jogador</h2>
         <form action="/jogadores" method="POST" class="row">
             <input type="text" name="nome" placeholder="Nome" required />
-            <input type="text" name="pontuacao" placeholder="Pontuação Inicial (opcional)" required />
+            <input type="text" name="pontuacao" placeholder="Pontuação Inicial (opcional)" min="0" required />
             <button type="submit">Adicionar</button>
         </form>
     </div>

@@ -1,33 +1,24 @@
 class Jogador {
-    constructor(id, nome, nivel, pontuacao){
-        if(!nome){
-            throw new Error(`O nome do jogador é obrigatório!`);
-        }
+    constructor(id, nome, pontuacao = 0) {
         this.id = id;
         this.nome = nome;
-        this.nivel = nivel;
-        this.pontuacao = pontuacao;
-        this.adicionado = false;
+        this.pontuacao = Number(pontuacao);
     }
 
-    adicionarPontos(){
-        return this.pontuacao += 10;
+    resumo() {
+        return `${this.nome} - ${this.pontuacao}`;
     }
 
-    verificarPontuacao(){
-        if(this.pontuacao >= 100) return `Avançado`;
-        if(this.pontuacao >= 50) return `Intermediário`;
-        if(this.pontuacao <= 40) return `Baixo`;
+    adicionarPontos() {
+        this.pontuacao += 50;
     }
 
-
-    resumo(){
-        return `${this.nome}`;
+    nivel() {
+        if (this.pontuacao <= 100) return `Iniciante`;
+        if (this.pontuacao <= 300) return `Intermediário`;
+        return `Avançado`;
     }
 
-    marcarComoAdicionado(){
-        this.adicionado = true;
-    }
 }
 
 export default Jogador

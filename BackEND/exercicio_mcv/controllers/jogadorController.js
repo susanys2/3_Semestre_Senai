@@ -1,29 +1,28 @@
 import Jogador from "../models/Jogador.js";
 
-//Vetor de objeto de livros
+//Vetor de objeto de Jogadores
 //id
 //nome
-//nivel
+//pontuação
 let listaJogadores = [
-    new Jogador(1, "Bianca", "Avançado", 100),
-    new Jogador(2, "Daniel", "Intermediário", 50),
-    new Jogador(3, "João", "Baixo", 30)
-
+    new Jogador(1, "Bianca", 100),
+    new Jogador(2, "Daniel", 50),
+    new Jogador(3, "João", 30)
 ]
 
 const jogadorController = {
-    listar: (req, res) => {
+    listar: (req, res) => { //vai retornar todos os jogadores que tenho cadastrado 
         res.render(`jogadores.ejs`, { jogadores: listaJogadores })
     },
-    adicionar: (req, res) => {
-        const { nome, nivel, pontuacao } = req.body; //tudo o que for passado pelo corpo da página, será extraído
 
-        try {
-            //COnstrução de um novo objeto utilizando a classe Jogador 
+    adicionar: (req, res) => {
+        const { nome, pontuacao } = req.body; //tudo o que for passado pelo corpo da página, será extraído
+
+        try { //esse try é pra "tentar" caso ele nao consiga ele entra no "catch" - - tratamento de erros
+            //Construção de um novo objeto utilizando a classe Jogador 
             const novoJogador = new Jogador(
                 listaJogadores.length + 1,
                 nome,
-                nivel,
                 Number(pontuacao)
             );
             listaJogadores.push(novoJogador);
@@ -33,10 +32,11 @@ const jogadorController = {
         }
 
     },
+
     adicionarPontos: (req, res) => {
         const { id } = req.body;
-        const jogador = listaJogadores.find(J => J .id === Number(id))
-        jogador.adicionarPontos();
+        const jogador = listaJogadores.find(j => j.id === Number(id)); //acabamos de receber a informação aqui, qual foi encontrado!
+        jogador.adicionarPontos(); //ele vai lá no jogador e atribui +50
         res.redirect(`/jogadores`);
     }
 

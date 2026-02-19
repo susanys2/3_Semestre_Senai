@@ -12,6 +12,6 @@ router.get('/jogadores', jogadorController.listar);
 router.post('/jogadores', jogadorController.adicionar);
 
 //rota para ação
-router.post('/jogadores/adicionado', jogadorController.adicionarPontos);
+router.post('/jogadores/adicionar-ponto', jogadorController.adicionarPontos);
 
 export default router;
