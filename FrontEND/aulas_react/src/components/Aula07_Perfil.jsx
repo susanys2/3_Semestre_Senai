@@ -2,14 +2,19 @@ import { useState } from "react"
 
 
 const Aula07_Perfil = () => {
-
-    function botaoClicar(event) {
-        return event.target.style.backgroundColor = '#ffd87d';
-
-    }
-
     return (
-        <div style={estilos.loginConteudo}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 10,
+            border: '1px solid #ccc',
+            padding: 20,
+            width: 220,
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+            borderRadius: 12,
+            margin: 10
+        }}>
             <Avatar />
             <InfoUsuario />
             <BotaoSeguir />
@@ -18,12 +23,9 @@ const Aula07_Perfil = () => {
 
 }
 
-
-
-
 export const Avatar = () => {
     return (
-        <img src="https://tse2.mm.bing.net/th/id/OIP.W7e1IaewnMMDt5mQgBgsdAAAAA?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3"></img>
+        <img style={{width:200, height:200, borderRadius:'50%'}} src="https://tse2.mm.bing.net/th/id/OIP.W7e1IaewnMMDt5mQgBgsdAAAAA?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3"></img>
     )
 
 }
@@ -34,10 +36,22 @@ export const InfoUsuario = () => {
 
 }
 export const BotaoSeguir = () => {
-    return (
-        <button onClick={(botaoClicar)} style={estilos.botao}>Seguir</button>
+     const [seguindo, setSeguindo] = useState(false)
 
+    return (
+        <button onClick={() => setSeguindo(!seguindo)} style={{ 
+            backgroundColor: seguindo == false ? '#18f000' : '#ba1b1b',
+            color:'#ffff',
+            border: 'none',
+            padding: '10px 16px',
+            borderRadius: 8
+        }}>
+            
+        {seguindo == false ? "Seguir" : "Deixar de seguir"}
+        
+        </button>
     )
+    
 
 }
 
