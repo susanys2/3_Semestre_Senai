@@ -2,6 +2,8 @@ import { estilos } from "../style/Estilos"
 import Aula07_MultComponentes, { MeuComponenteNomeado, MeuComponenteNomeado2, enderecoLocalHost } from "./Aula07_MultComponentes"
 import Aula07_Perfil, { Avatar, BotaoSeguir, InfoUsuario } from "./Aula07_Perfil"
 import Aula07_Perfil_Correcao from "./Aula07_Perfil_Correcao"
+import Aula08 from "./Aula08"
+import Aula09 from "./Aula09"
 
 const Aula07 = () => {
     return (
@@ -17,6 +19,8 @@ const Aula07 = () => {
             <div style={estilos.cardAula}>
                 <h1>Criando um Perfilzinho</h1>
                 <Aula07_Perfil />
+                <Aula08/>
+                <Aula09/>
         
             </div>
 

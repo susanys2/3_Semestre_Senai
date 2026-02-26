@@ -4,7 +4,7 @@ const app = express();
 
 //Criando o PRIMEIRO ENDPOINT 
 app.get(`/`, async (req, res) => { //RAIZ
-    res.json(`API FUNCIONANDO`);
+    res.status(200).json(`API FUNCIONANDO`);
 })
 
 //Quando eu acessar essa rota..
@@ -22,7 +22,7 @@ app.get(`/cep/:codigo`, async (req, res) => { //precisamos pegar esse codigo e m
      const estado = dados.uf;
 
 //    //res.json(dados);
-     res.json({ cidade, estado }); //precisamos colocar como chves pois so assim ele retorna o objeto 
+     res.status(201).json({ cidade, estado }); //precisamos colocar como chves pois so assim ele retorna o objeto 
 
  })
 

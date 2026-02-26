@@ -17,7 +17,7 @@ const Game = () => {
             setMensagem(`Acertou 😮!! Voce conseguiu em ${tentativas} tentativas!`)
             setJogoFinalizado(true)
         } else if (numeroSecreto < chute){
-            setMensagem(`Voce chutou muito baixooo com ${chute}, tente um número menor!`)
+            setMensagem(`Voce chutou muito altooo com ${chute}, tente um número menor!`)
             setChute('')
             setTentativas(tentativas + 1)
         } else{

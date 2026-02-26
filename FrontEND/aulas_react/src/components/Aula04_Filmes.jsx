@@ -1,3 +1,5 @@
+import imagem from '../assets/CincoEstrelinhas.png'
+
 const Aula04_FIlmes = ({foto, titulo, genero, ano}) =>{
     return(
         <div style={estilos.todos}>
@@ -6,6 +8,7 @@ const Aula04_FIlmes = ({foto, titulo, genero, ano}) =>{
             <h3 style={estilos.titulo} >{titulo}</h3>
             <p>{genero}</p>
             <p>{ano}</p>
+            <img src={imagem} style={{ width: '100%' }}></img>
             <button style={estilos.botao} >Acessar</button>
         </div>
         </div>
