@@ -5,11 +5,19 @@ import { Pool } from 'pg';
 
 const BD = new Pool({
     user: 'postgres',
-    host: 'db.lfqmmqjzjjcmkgwhyesh.supabase.co',
-    database: 'postgres',
+    host: 'localhost',
+    database: 'bd_ordem_servicos',
     port: 5432,
-    password: 'bancodedadossenai'
+    password: 'admin'
 })
+
+//const BD = new Pool({
+//    user: 'postgres',
+//    host: 'db.lfqmmqjzjjcmkgwhyesh.supabase.co',
+//    database: 'postgres',
+//   port: 5432,
+//    password: 'bancodedadossenai'
+//})
 
 const testarConexao = async () => {
     try {

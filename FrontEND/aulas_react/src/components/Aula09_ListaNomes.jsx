@@ -1,40 +1,57 @@
 import { useState } from "react";
-import { estilos } from "../style/Estilos"
 import Aula09_Nome from "./Aula09_Nome";
 
 const Aula09_ListaNomes = () => {
-    const [nome, setNome] = useState('')
-    const [listaPresenca, setListaPresenca] = useState(['Douglas Levar Carne', 'Ricardo Levar Frango', 'Edcarlos levar refrigerante'])
+    //Varipavel de estado 
+    const [nome, setNome] = useState('') //HOOK - funcionalidades do react
+    const [listaPresenca, setListaPresenca] = useState([ //esse set é o método para armazenar o valor da variável 
+        'Ricardo',
+        'Douglas',
+        'Edcarlos'
+])
 
-   function botaoLimpar(n){
-        const novoNome = numerosSorteados.filter((nome) => nome != n)
-        setNumerosSorteados(novosNumeros)
+    function botaoLimparLista() {
+        setListaPresenca([])
     }
-    function botaoAdicionar(){
-        setNome(novoNome)
+
+    function botaoExcluir() {
+        setNome('')
     }
 
+    //precisa pegar o que estou digitando no input, no caso o NOME e colocar na lista de presença
+    function botaoAdicionar() {
+        setListaPresenca([...listaPresenca, nome]) //o set é quem tem autorização para adicionar/ mudar coisas na lista
+        console.log(listaPresenca);
+    } //mantem o conteudo atual e adiciona a variavel nome!
 
-    return (
+
+    return ( //aqui é onde colocamos tudo do nosso HTML - daqui pra fora é nosso código JavaScript
         <div>
-            <h1>Lista de Presença do Churrasco</h1>
-            <hr/>
-            <input type="text" onChange={(event) => setNome(event.target.value)} value={nome}></input>
+            <h1>Lista de Presença do Churrasco ♨️</h1>
+            <hr />
+
+            <input
+                type="text" //onChange - ao mudar um valor no meu componente - é um evento
+                onChange={(event) => setNome(event.target.value)}
+                value={nome}></input>
 
             <button onClick={botaoAdicionar}>Adicionar</button>
-            <button onClick={botaoLimpar}>Limpar Lista</button>
 
-            <div style={{display: "flex"}}>
-            {
-                listaPresenca.map((nome, index) => (
-                    <Aula09_Nome></Aula09_Nome>
-                ))
-            }
+            <div style={{ display: "flex" }}>
+                { //para digitar um codigo java aqui dentro, precisamos colocar chaves sempre!!! 
+                    listaPresenca.map((pessoa, index) => ( //esse map vai meio que ficar rodando - - - o pessoa é o parametro da nossa arow function 
+                        <Aula09_Nome key={index} pessoa={pessoa}/> //o index é a posição do nosso vetor -> 0 1 2 . . .
+                    ))
+                }
             </div>
-            
+
+            <button onClick={botaoLimparLista}>Limpar Lista</button>
+
+
         </div>
     )
 
 }
 
+//exportar como padrao - utilizar em outro arquivo
 export default Aula09_ListaNomes

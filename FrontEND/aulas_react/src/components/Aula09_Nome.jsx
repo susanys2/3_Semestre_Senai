@@ -1,10 +1,8 @@
-
-const Aula09_Nome = ({pessoa, index, excluir}) => {
+const Aula09_Nome = ({ pessoa}) => {
     return (
-        <p>
-            {pessoa}
-            <button onClick={excluir} >Excluir</button>
-        </p> 
+        <div>
+            <p style={{fontSize: '30px'}}>{pessoa}</p>
+        </div>
     )
 
 }

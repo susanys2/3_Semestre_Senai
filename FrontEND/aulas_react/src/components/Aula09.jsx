@@ -3,6 +3,7 @@ import { estilos } from "../style/Estilos"
 import Aula07_Perfil from "./Aula07_Perfil"
 import Aula09_Numero from "./Aula09_Numero";
 import Aula09_ListaNomes from "./Aula09_ListaNomes";
+import Aula10 from "./Aula10";
 
 const Aula09 = () => {
     const [numerosSorteados, setNumerosSorteados] = useState([10, 43, 28, 2])
@@ -44,7 +45,10 @@ const Aula09 = () => {
                 ))
             }
             </div>
+
             <Aula09_ListaNomes/>
+            <Aula10/>
+            
         </div>
     );
 };
