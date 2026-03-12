@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Aula09_Nome from "./Aula09_Nome";
+import { estilos } from "../style/Estilos"
+
 
 const Aula09_ListaNomes = () => {
     //Varipavel de estado 
     const [nome, setNome] = useState('') //HOOK - funcionalidades do react
     const [listaPresenca, setListaPresenca] = useState([ //esse set é o método para armazenar o valor da variável 
-        'Ricardo',
-        'Douglas',
-        'Edcarlos'
-])
+    ])
 
     function botaoLimparLista() {
         setListaPresenca([])
+        // localStorage.setItem(`valornome`, JSON.stringify([ ])) //aqui estamos substituindo por um vetor vazio - PODERIA FAZER ASSIM
+        localStorage.removeItem('valornome')
     }
 
     function botaoExcluir() {
@@ -21,12 +22,18 @@ const Aula09_ListaNomes = () => {
     //precisa pegar o que estou digitando no input, no caso o NOME e colocar na lista de presença
     function botaoAdicionar() {
         setListaPresenca([...listaPresenca, nome]) //o set é quem tem autorização para adicionar/ mudar coisas na lista
-        console.log(listaPresenca);
+        //Armazenando localmente - local é no navegador - nosso contador
+        localStorage.setItem(`valornome`, JSON.stringify([...listaPresenca, nome]))
     } //mantem o conteudo atual e adiciona a variavel nome!
+
+    useEffect(() => {
+        const nomeSalvo = localStorage.getItem(`valornome`) || "[]"; //se for um valor que não existe, atribua um vetor - vai sem nada!
+        setListaPresenca(JSON.parse(nomeSalvo))
+    }, [])
 
 
     return ( //aqui é onde colocamos tudo do nosso HTML - daqui pra fora é nosso código JavaScript
-        <div>
+        <div style={estilos.cardAula} >
             <h1>Lista de Presença do Churrasco ♨️</h1>
             <hr />
 
@@ -37,13 +44,14 @@ const Aula09_ListaNomes = () => {
 
             <button onClick={botaoAdicionar}>Adicionar</button>
 
-            <div style={{ display: "flex" }}>
+            {<div style={{ display: "flex" }}>
                 { //para digitar um codigo java aqui dentro, precisamos colocar chaves sempre!!! 
+                    // o map é uma função de um vetor, não de um inteiro 
                     listaPresenca.map((pessoa, index) => ( //esse map vai meio que ficar rodando - - - o pessoa é o parametro da nossa arow function 
-                        <Aula09_Nome key={index} pessoa={pessoa}/> //o index é a posição do nosso vetor -> 0 1 2 . . .
+                        <Aula09_Nome key={index} pessoa={pessoa} /> //o index é a posição do nosso vetor -> 0 1 2 . . .
                     ))
                 }
-            </div>
+            </div>}
 
             <button onClick={botaoLimparLista}>Limpar Lista</button>
 

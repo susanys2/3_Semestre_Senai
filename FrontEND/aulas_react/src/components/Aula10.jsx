@@ -5,24 +5,28 @@ import { estilos } from "../style/Estilos"
 const Aula10 = () => {
     const [contador, setContador] = useState(0)
 
-    function botaoContador(){
+    function botaoContador() {
         const novoContador = contador + 1
         setContador(novoContador)
-        //Armazenando localmente nosso contador
+        //Armazenando localmente - local é no navegador - nosso contador
         localStorage.setItem(`valorContador`, JSON.stringify(novoContador))
+    }
+
+    function botaoLimpar() {
+        setContador([]);
     }
 
     //O useEffect fica monitorando uma variável e executa
     //a função sempre que ela sofrer uma alteração
     //esse efeito será executado sempre que o "contador" mudar 
-    useEffect( () => {
+    useEffect(() => { //observando a variável contador que acabamos de criar 
         console.log(contador);
         document.title = `Contagem: ${contador}`
-        
+
     }, [contador])
 
     //O useEffect é com as chaves [] vazia - o efeito deve ser executado apenas quando a página é carregada 
-    useEffect( () => {
+    useEffect(() => {
         const contadorSalvo = localStorage.getItem(`valorContador`) || 0; //se for um valor que não existe, atribua zero 
         setContador(JSON.parse(contadorSalvo))
     }, [])
@@ -37,6 +41,7 @@ const Aula10 = () => {
 
             <p>Você clicou {contador} vezes</p>
             <button onClick={(botaoContador)}>Clique aqui</button>
+            <button onClick={(botaoLimpar)}>Limpar Quantidade</button>
         </div>
     )
 }

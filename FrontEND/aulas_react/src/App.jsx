@@ -7,28 +7,30 @@ import { estilos } from "./style/Estilos";
 import Aula05_Eventos from "./components/Aula05_Eventos";
 import Aula06 from "./components/Aula06";
 import Aula07 from "./components/Aula07";
+import Aula11 from "./components/Aula11";
 
 const App = () => { //o return so consegue enviar um elemento pai, sem essa div
   //agora aqui nos vamos incluir o componente que nos criamos
   // e a mesma coisa de copiarmos e colarmos o codigo, so que de maneira mais simplificada 
   return (
-  <div style={estilos.fundo}>
-      <Cabecalho aula='React'/>
-    <main style={estilos.conteudo}>      
+    <div style={estilos.fundo}>
+      <Cabecalho aula='React' />
+      <main style={estilos.conteudo}>
         <h2>Aulas</h2>
         <div style={estilos.lista_aulas}>
           {/*aqui será colocado todos os componentes de Aula */}
-          <Aula01/>
-          <Aula02/>
-          <Aula03/>
-          <Aula04_Props/>
-          <Aula05_Eventos/> 
-          <Aula06/>
-          <Aula07/> 
+          <Aula01 />
+          <Aula02 />
+          <Aula03 />
+          <Aula04_Props />
+          <Aula05_Eventos />
+          <Aula06 />
+          <Aula07 />
+          <Aula11 /> 
         </div>
-    </main>   
-  </div>
-     )
+      </main>
+    </div>
+  )
 }
 
 export default App;

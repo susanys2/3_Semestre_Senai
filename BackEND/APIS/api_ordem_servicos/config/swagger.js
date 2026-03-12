@@ -39,6 +39,35 @@ const documentacao = {
                     }
                 }
             },
+            post: {
+                tags: ["Usuários"],
+                summary: "Cadastrar novo usuário",
+                description: "Recebe nome, email, senha para cadastrar novo usuário",
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/Cadastro_Usuario"
+                            }
+
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Usuário cadastrado com sucesso"
+                    },
+                    400: {
+                        description: "Erro na requisição(Dados Faltantes - preencha todos os campos)"
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+                }
+
+            },
+
             "/departamentos": {
                 get: {
                     tags: ["Departamentos"],
@@ -70,6 +99,15 @@ const documentacao = {
                     id: { type: "integer", example: 1 },
                     nome: { type: "string", example: "Ricardo" },
                     email: { type: "string", example: "ricardo@email.com" }
+                }
+            },
+            
+            Cadastro_Usuario: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "Ricardo" },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: {type: "string", example: "123"}
                 }
             },
             Lista_Departamentos: {
