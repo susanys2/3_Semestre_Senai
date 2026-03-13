@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { BD } from "../../db.js";
+import { BD } from "../../db.js"; //usamos isso aqui para conectar com o banco 
 
 const router = Router();
 
