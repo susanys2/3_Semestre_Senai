@@ -8,6 +8,7 @@ import Aula05_Eventos from "./components/Aula05_Eventos";
 import Aula06 from "./components/Aula06";
 import Aula07 from "./components/Aula07";
 import Aula11 from "./components/Aula11";
+import Aula12 from "./components/Aula12";
 
 const App = () => { //o return so consegue enviar um elemento pai, sem essa div
   //agora aqui nos vamos incluir o componente que nos criamos
@@ -27,6 +28,7 @@ const App = () => { //o return so consegue enviar um elemento pai, sem essa div
           <Aula06 />
           <Aula07 />
           <Aula11 /> 
+          <Aula12></Aula12>
         </div>
       </main>
     </div>

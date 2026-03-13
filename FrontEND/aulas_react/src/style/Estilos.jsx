@@ -34,7 +34,29 @@ export const estilos = {
     quadrado:{
         width: 100,
         height: 100,
-    }
+    },
+
+    tituloLogin:{
+        fontSize: '30px',
+        padding: '5px',
+        color: '#be0b0b',
+
+    },
+    loginConteudo: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#d0d0d0',
+        padding: '20px',
+        margin: '10px auto',
+        width: '300px',
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
+        borderRadius: '8px',
+        gap: '5px',
+    
+        
+    },
 
     
 }
