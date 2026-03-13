@@ -19,7 +19,7 @@ const documentacao = {
     tags: [ //cada separação que temos ele vai para um local especifico 
         { name: "Usuários", description: "Operações relacionadas aos usuários" },
         { name: "Departamentos", description: "Operações relacionadas a departamentos" },
-        { name: "Ordem de Serviços", description: "Ordem de realização de pedidos"}
+        { name: "Ordem de Serviços", description: "Ordem de realização de pedidos" }
     ],
     paths: {
         "/usuarios": {
@@ -68,48 +68,48 @@ const documentacao = {
                 }
 
             }
-            },
-            "/usuarios/{id_usuario}": {
-                put: {
-                    tags: ['Usuários'],
-                    summary: "Atualizar usuário completo",
-                    description: "Atualiza todos os campos de um usuário existente, sendo necessário enviar todos os campos(nome, email, senha)",
-                    parameters: [
-                        {
-                            name: "id_usuario",
-                            in: "path",
-                            required: true,
-                            description: "ID do Usuário a ser atualizado",
-                            schema: { type: "integer" },
-                            example: 1
-                        }
-                    ],
-                    requestBody: {
-
+        },
+        "/usuarios/{id_usuario}": {
+            put: {
+                tags: ['Usuários'],
+                summary: "Atualizar usuário completo",
+                description: "Atualiza todos os campos de um usuário existente, sendo necessário enviar todos os campos(nome, email, senha)",
+                parameters: [
+                    {
+                        name: "id_usuario",
+                        in: "path",
                         required: true,
-                        content: {
-                            "application/json": {
-                                schema: { $ref: "#/components/schemas/Atualizacao_Usuario" }
-                            }
-                        }
+                        description: "ID do Usuário a ser atualizado",
+                        schema: { type: "integer" },
+                        example: 1
+                    }
+                ],
+                requestBody: {
 
-                    },
-                    responses: {
-                        200: {
-                            description: "Usuário atualizado com sucesso",
-                            content: { "application/json": { example: "Usuário atualizado" } }
-                        },
-                        400: {
-                            description: "Usuário não encontrado",
-                            content: { "application/json": { example: "Usuário não encontrado" } }
-                        },
-                        500: {
-                            description: "Erro no Servidor",
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: { $ref: "#/components/schemas/Atualizacao_Usuario" }
                         }
                     }
+
+                },
+                responses: {
+                    200: {
+                        description: "Usuário atualizado com sucesso",
+                        content: { "application/json": { example: "Usuário atualizado" } }
+                    },
+                    400: {
+                        description: "Usuário não encontrado",
+                        content: { "application/json": { example: "Usuário não encontrado" } }
+                    },
+                    500: {
+                        description: "Erro no Servidor",
+                    }
                 }
-            },
-        
+            }
+        },
+
         "/departamentos": {
             get: {
                 tags: ["Departamentos"],
@@ -157,46 +157,46 @@ const documentacao = {
                 }
             },
         },
-        "/departamentos/{id_departamento}":{
+        "/departamentos/{id_departamento}": {
             put: {
-                    tags: ['Departamentos'],
-                    summary: "Atualizar departamento completo",
-                    description: "Atualiza todos os campos de um departamento existente, sendo necessário enviar todos os campos(nome, descricao)",
-                    parameters: [
-                        {
-                            name: "id_departamento",
-                            in: "path",
-                            required: true,
-                            description: "ID do Departamento a ser atualizado",
-                            schema: { type: "integer" },
-                            example: 1
-                        }
-                    ],
-                    requestBody: {
+                tags: ['Departamentos'],
+                summary: "Atualizar departamento completo",
+                description: "Atualiza todos os campos de um departamento existente, sendo necessário enviar todos os campos(nome, descricao)",
+                parameters: [
+                    {
+                        name: "id_departamento",
+                        in: "path",
                         required: true,
-                        content: {
-                            "application/json": {
-                                schema: { $ref: "#/components/schemas/Atualizacao_Departamento" }
-                            }
-                        }
-
-                    },
-                    responses: {
-                        200: {
-                            description: "Departamento atualizado com sucesso",
-                            content: { "application/json": { example: "Departamento atualizado" } }
-                        },
-                        400: {
-                            description: "Departamento não encontrado",
-                            content: { "application/json": { example: "Departamento não encontrado" } }
-                        },
-                        500: {
-                            description: "Erro no Servidor",
+                        description: "ID do Departamento a ser atualizado",
+                        schema: { type: "integer" },
+                        example: 1
+                    }
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: { $ref: "#/components/schemas/Atualizacao_Departamento" }
                         }
                     }
+
                 },
+                responses: {
+                    200: {
+                        description: "Departamento atualizado com sucesso",
+                        content: { "application/json": { example: "Departamento atualizado" } }
+                    },
+                    400: {
+                        description: "Departamento não encontrado",
+                        content: { "application/json": { example: "Departamento não encontrado" } }
+                    },
+                    500: {
+                        description: "Erro no Servidor",
+                    }
+                }
+            },
         },
-        "ordem_servicos":{
+        "/ordem_servicos": {
             get: {
                 tags: ["Ordem de Serviços"],
                 summary: "Listar Ordem de Serviços",
@@ -204,7 +204,7 @@ const documentacao = {
                     200: {
                         description: "Dados obtidos com sucesso!",
                         content: {
-                            "apllication/json": {
+                            "application/json": {
                                 schema: {
                                     type: "array",
                                     items: { $ref: "#/components/schemas/Lista_OrdemServicos" } //aqui é como se fosse uma ancoragem 
@@ -217,7 +217,7 @@ const documentacao = {
             post: {
                 tags: ["Ordem de Serviços"],
                 summary: "Cadastrar nova Ordem de Serviço",
-                description: "Recebe numero_ordem, titulo, descricao e prioridade para cadastrar novo usuário",
+                description: "Recebe numero_ordem, titulo, descricao e prioridade para cadastrar nova Ordem de Serviço",
                 requestBody: {
                     required: true,
                     content: {
@@ -243,133 +243,149 @@ const documentacao = {
 
             },
         },
-        "/ordem_servicos/{id_ordem}":{
+        "/ordem_servicos/{id_ordem}": {
             put: {
-                    tags: ['Ordem de Serviços'],
-                    summary: "Atualizar ordem de serviços completo",
-                    description: "Atualiza todos os campos de ordem de serviços existente, sendo necessário enviar todos os campos(numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento)",
-                    parameters: [
-                        {
-                            name: "id_ordem",
-                            in: "path",
-                            required: true,
-                            description: "ID da Ordem de Serviço a ser atualizado",
-                            schema: { type: "integer" },
-                            example: 1
-                        }
-                    ],
-                    requestBody: {
+                tags: ['Ordem de Serviços'],
+                summary: "Atualizar ordem de serviços completo",
+                description: "Atualiza todos os campos de ordem de serviços existente, sendo necessário enviar todos os campos(numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento)",
+                parameters: [
+                    {
+                        name: "id_ordem",
+                        in: "path",
                         required: true,
-                        content: {
-                            "application/json": {
-                                schema: { $ref: "#/components/schemas/Atualizacao_OrdemServicos" }
-                            }
+                        description: "ID da Ordem de Serviço a ser atualizado",
+                        schema: { type: "integer" },
+                        example: 1
+                    }
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: { $ref: "#/components/schemas/Atualizacao_OrdemServicos" }
                         }
+                    }
+                },
+                responses: {
+                    200: {
+                        description: "Ordem de Serviços atualizado com sucesso",
+                        content: { "application/json": { example: "Ordem de Serviços atualizado" } }
                     },
-                    responses: {
-                        200: {
-                            description: "Ordem de Serviços atualizado com sucesso",
-                            content: { "application/json": { example: "Ordem de Serviços atualizado" } }
-                        },
-                        400: {
-                            description: "Ordem de Serviços não encontrado",
-                            content: { "application/json": { example: "Ordem de Serviços não encontrado" } }
-                        },
-                        500: {
-                            description: "Erro no Servidor",
-                        }
+                    400: {
+                        description: "Ordem de Serviços não encontrado",
+                        content: { "application/json": { example: "Ordem de Serviços não encontrado" } }
+                    },
+                    500: {
+                        description: "Erro no Servidor",
                     }
                 }
-        },
-
-        components: { //aqui é praticamente objeto dentro de objeto 
-            schemas: {
-                Lista_Usuarios: {
-                    type: "object",
-                    properties: {
-                        id: { type: "integer", example: 1 },
-                        nome: { type: "string", example: "Ricardo" },
-                        email: { type: "string", example: "ricardo@email.com" }
-                    }
-                },
-
-                Cadastro_Usuario: {
-                    type: "object",
-                    properties: {
-                        nome: { type: "string", example: "Ricardo" },
-                        email: { type: "string", example: "ricardo@email.com" },
-                        senha: { type: "string", example: "123" }
-                    }
-                },
-                Atualizacao_Usuario: {
-                    type: "object",
-                    required: ["nome", "email", "senha"],
-                    properties: {
-                        nome: { type: "string", example: "Ricardo" },
-                        email: { type: "string", example: "ricardo@email.com" },
-                        senha: { type: "string", example: "123" },
-
-                    }
-
-                },
-                Lista_Departamentos: {
-                    type: "object",
-                    properties: {
-                        id: { type: "integer", example: 1 },
-                        nome: { tpe: "string", example: "Manutenção" },
-                        descricao: { type: "string", example: "Setor de manutenção geral" }
-                    }
-                },
-                Cadastro_Departamentos: {
-                    type: "object",
-                    properties: {
-                        nome: { type: "string", example: "Sala de Robótica" },
-                        descricao: { type: "integer", example: "Sala com pertences relacionados a tecnologia para estudos práticos" }
-                    }
-                },
-                Atualizacao_Departamento:{
-                    type: "object",
-                    required: ["nome", "descricao"],
-                    properties: {
-                        nome: { type: "string", example: "Sala de Informática" },
-                        descricao: { type: "string", example: "Sala de computadores de ultima geração para uso coletivo dos alunos" },
-                    }
-                },
-                Lista_OrdemServicos:{
-                    type: "object",
-                    properties: {
-                        id: { type: "integer", example: 1 },
-                        numero_ordem: { tpe: "string", example: 2 },
-                        titulo: {type: "string", example: "Manutenção na Lampada"},
-                        descricao: { type: "string", example: "Setor de manutenção geral" }
-                    }
-
-                },
-                Cadastro_OrdemServicos: {
-                    type: "object",
-                    properties: {
-                        numero_ordem: { type: "string", example: 2 },
-                        titulo: { type: "string", example: "Cadeira quebrada" },
-                        descricao: { type: "string", example: "Manutenção de cadeira na sala de informática" },
-                        prioridade: { type: "string", example: "Alta" },
-                        id_usuario: { type: "string", example: 1 },
-                        id_departamento: { type: "string", example: 1 }
-                    }
-                },
-                Atualizacao_OrdemServicos:{
-                    type: "object",
-                    required: ["nome", "descricao"],
-                    properties: {
-                        nome: { type: "string", example: "Sala de Informática" },
-                        descricao: { type: "string", example: "Sala de computadores de ultima geração para uso coletivo dos alunos" },
-                    }
-                },
             }
+        },
+    },
+    components: { //aqui é praticamente objeto dentro de objeto 
+        schemas: {
+            Lista_Usuarios: {
+                type: "object",
+                properties: {
+                    id: { type: "integer", example: 1 },
+                    nome: { type: "string", example: "Ricardo" },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" }
+                }
+            },
+
+            Cadastro_Usuario: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "Ricardo" },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" }
+                }
+            },
+            Atualizacao_Usuario: {
+                type: "object",
+                required: ["nome", "email", "senha"],
+                properties: {
+                    nome: { type: "string", example: "Ricardo" },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" },
+
+                }
+
+            },
+            Lista_Departamentos: {
+                type: "object",
+                properties: {
+                    id: { type: "integer", example: 1 },
+                    nome: { tpe: "string", example: "Manutenção" },
+                    descricao: { type: "string", example: "Setor de manutenção geral" }
+                }
+            },
+            Cadastro_Departamentos: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "Sala de Robótica" },
+                    descricao: { type: "integer", example: "Sala com pertences relacionados a tecnologia para estudos práticos" }
+                }
+            },
+            Atualizacao_Departamento: {
+                type: "object",
+                required: ["nome", "descricao"],
+                properties: {
+                    nome: { type: "string", example: "Sala de Informática" },
+                    descricao: { type: "string", example: "Sala de computadores de ultima geração para uso coletivo dos alunos" },
+                },
+
+            },
+            Lista_OrdemServicos: {
+                type: "object",
+                properties: {
+                    id: { type: "integer", example: 1 },
+                    numero_ordem: { type: "integer", example: 1003 },
+                    titulo: { type: "string", example: "Manutenção na Lampada" },
+                    descricao: { type: "string", example: "A sala de informática está impropria para uso devido ao escuro" },
+                    prioridade: { type: "string", example: "Alta" },
+                    status: { type: "string", example: "Ainda não iniciado" },
+                    data: { type: "string", format: "date", example: "13-03-2026" },
+                    id_usuario: { type: "integer", example: 2 },
+                    id_departamento: { type: "integer", example: 1 },
+
+                }
+
+            },
+            Cadastro_OrdemServicos: {
+                type: "object",
+                properties: {
+                    numero_ordem: { type: "integer", example: 1004 },
+                    titulo: { type: "string", example: "Cadeira quebrada" },
+                    descricao: { type: "string", example: "Manutenção de cadeira na sala de informática" },
+                    prioridade: { type: "string", example: "Alta" },
+                    status: { type: "string", example: "Em andamento" },
+                    data: { type: "string", format: "date", example: "13-03-2026" },
+                    id_usuario: { type: "integer", example: 1 },
+                    id_departamento: { type: "integer", example: 1 }
+                }
+            },
+            Atualizacao_OrdemServicos: {
+                type: "object",
+                required: ["numero_ordem", "titulo", "descricao", "prioridade", "status", "data", "id_usuario", "id_departamento"],
+                properties: {
+                    numero_ordem: { type: "integer", example: 1004 },
+                    titulo: { type: "string", example: "Biblioteca" },
+                    descricao: { type: "string", example: "Estante quebrada" },
+                    prioridade: { type: "string", example: "Alta" },
+                    status: { type: "string", example: "Em andamento" },
+                    data: { type: "string", format: "date", example: "13-03-2026" },
+                    id_usuario: { type: "integer", example: 1 },
+                    id_departamento: { type: "integer", example: 1 }
+
+                }
+            },
         }
-
-
     }
 
+
 }
+
 
 export default documentacao 

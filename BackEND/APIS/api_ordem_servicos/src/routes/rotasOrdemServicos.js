@@ -4,7 +4,7 @@ import { BD } from "../../db.js";
 const router = Router();
 
 //CRIAÇÃO DO ENDPOINT - ROTA DE DEPARTAMENTOS 
-router.get('/ordemservicos', async (req, res) =>{
+router.get('/ordem_servicos', async (req, res) =>{
     try{
         const query = `SELECT * FROM ordem_servicos ORDER BY id_ordem`
         const ordem_servicos = await BD.query(query);
@@ -17,12 +17,12 @@ router.get('/ordemservicos', async (req, res) =>{
 })
 
 router.post('/ordem_servicos', async (req, res) => {
-    const { numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento } = req.body;
+    const { numero_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento } = req.body;
 
     try {
 
-        const comando = `INSERT INTO ORDEM_SERVICOS(numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento) VALUES($1, $2, $3, $4, $5, $6)`
-        const valores = [numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento];
+        const comando = `INSERT INTO ORDEM_SERVICOS(numero_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`
+        const valores = [numero_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento];
 
         await BD.query(comando, valores);
         console.log(comando, valores);
@@ -42,7 +42,7 @@ router.put('/ordem_servicos/:id_ordem', async(req, res) =>{
     const {id_ordem} = req.params;
 
     //dados do usuario recebido via corpo da página 
-    const {numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento} = req.body;
+    const {numero_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento} = req.body;
     try{
         //verificar se o uusário existe 
         const verificarOrdemServico = await BD.query(`SELECT * FROM ORDEM_SERVICOS
@@ -52,9 +52,9 @@ router.put('/ordem_servicos/:id_ordem', async(req, res) =>{
         }
 
         //Atualiza todos os campos da tabela!! PUT - SUBSTITUIÇÃO COMPLETA
-        const comando = `UPDATE ORDEM_SERVICOS SET numero_ordem = $1, titulo = $2, descricao = $3, prioridade = $4, id_usuario = $5, id_departamento = $6
-        WHERE id_ordem = $7`
-        const valores = [numero_ordem, titulo, descricao, prioridade, id_usuario, id_departamento, id_ordem]; //aqui colocamos na ordem das informações postas acima no comando 
+        const comando = `UPDATE ORDEM_SERVICOS SET numero_ordem = $1, titulo = $2, descricao = $3, prioridade = $4, status = $5, data= $6, id_usuario = $7, id_departamento = $8
+        WHERE id_ordem = $9`
+        const valores = [numero_ordem, titulo, descricao, prioridade, status, data, id_usuario, id_departamento, id_ordem]; //aqui colocamos na ordem das informações postas acima no comando 
         await BD.query(comando, valores);
 
         return res.status(200).json({message: 'Ordem de Serviços atualizado com sucesso!'}) //indicando que deu certooo
