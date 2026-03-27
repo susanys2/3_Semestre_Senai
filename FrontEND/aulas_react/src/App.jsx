@@ -1,40 +1,31 @@
-import Cabecalho from "./components/Cabecalho";
-import Aula01 from "./components/Aula01";
-import Aula02 from "./components/Aula02";
-import Aula03 from "./components/Aula03";
-import Aula04_Props from "./components/Aula04_Props";
-import { estilos } from "./style/Estilos";
-import Aula05_Eventos from "./components/Aula05_Eventos";
-import Aula06 from "./components/Aula06";
-import Aula07 from "./components/Aula07";
-import Aula11 from "./components/Aula11";
-import Aula12 from "./components/Aula12";
-import Aula13 from "./components/Aula13";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Principal from './pages/Principal';
+import Sobre from './pages/Sobre';
+import NotFound from './pages/NotFound';
+import Perfil from './pages/Perfil';
+import Inicio from './pages/Inicio';
+import Contato from './pages/Contato';
+import Detalhes from './pages/Detalhes';
+import Filme from './pages/Filme';
 
-const App = () => { //o return so consegue enviar um elemento pai, sem essa div
-  //agora aqui nos vamos incluir o componente que nos criamos
-  // e a mesma coisa de copiarmos e colarmos o codigo, so que de maneira mais simplificada 
-  return (
-    <div style={estilos.fundo}>
-      <Cabecalho aula='React' />
-      <main style={estilos.conteudo}>
-        <h2>Aulas</h2>
-        <div style={estilos.lista_aulas}>
-          {/*aqui será colocado todos os componentes de Aula */}
-          <Aula01 />
-          <Aula02 />
-          <Aula03 />
-          <Aula04_Props />
-          <Aula05_Eventos />
-          <Aula06 />
-          <Aula07 />
-          <Aula11 /> 
-          <Aula12></Aula12>
-          <Aula13></Aula13>
-        </div>
-      </main>
-    </div>
-  )
+function App() {
+    return (
+        <BrowserRouter>
+            <Routes> {/* Nesse PATH nos estamos ensinando nosso computador para onde ele deve ir */}
+                <Route path='/' element={<Principal />} />
+                <Route path='/sobre' element={<Sobre />} />
+                {/* Se eu entrar em uma página que não exista, chamamos ela! */}
+                <Route path='*' element={<NotFound />} />
+                {/* O nome é como se fosse a passagem do ID - porem como NOME, pois foi nomeado assim */}
+                <Route path='/perfil/:nome' element={<Perfil />} />
+                <Route path='/inicio' element={<Inicio />} />
+                <Route path='/contato' element={<Contato />} />
+                <Route path='/detalhes' element={<Detalhes />} />
+                <Route path='/filme/:nomeFilme' element={<Filme />} />
+            </Routes>
+        </BrowserRouter>
+
+    )
 }
 
-export default App;
+export default App

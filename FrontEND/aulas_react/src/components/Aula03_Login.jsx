@@ -1,23 +1,35 @@
+import { useState } from "react";
 const Aula03_Login = () => {
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [mensagem, setMensagem] = useState('')
+
+    const botaoEntrar = () => {
+        if (email == 'senai@senai.br' && senha == '123') {
+            setMensagem('✅ Login bem sucedido')
+        } else {
+            setMensagem('❌ Email ou senha incorreto')
+        }
+    }
+
     return (
         <div style={estilos.loginConteudo}>
-                <img style={estilos.logo} src="https://tecservice.com.br/wp-content/uploads/2024/05/senai-logo.jpg"></img>
-                <h2 style={estilos.tituloLogin}>Login</h2>
-
-            <div style={estilos.campos}>
-                 <label style={estilos.label}>Email</label>
-                 <input type='text' placeholder='Digite seu email' style={estilos.input}></input>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbde4nriDD9cTH89oI4wefdHBvHXZtappHGA&s" 
+                style={estilos.logo}/>
+            <h2>Login</h2>
+            <div style={estilos.grupoInput}>
+                <label style={estilos.label} >Email</label>
+                <input type="text" placeholder='Digite seu email' style={estilos.input} 
+                    onChange={(event) => setEmail(event.target.value)} value={email} />
             </div>
-
-            <div style={estilos.campos}>
-                 <label style={estilos.label}>Senha</label>
-                 <input type='password' placeholder='Digite sua senha' style={estilos.input}></input>
+            <div style={estilos.grupoInput}>
+                <label style={estilos.label}>Senha</label>
+                <input type="password" placeholder='Digite sua senha' style={estilos.input} 
+                    onChange={(event) => setSenha(event.target.value)} value={senha}/>
             </div>
-
-            <button style={estilos.botao}>Entrar</button>
-
+            <button onClick={botaoEntrar} style={estilos.botao}>Entrar</button>
+            <p style={{fontStyle:'bold'}}>{mensagem}</p>
         </div>
-        
     )
 
 }
@@ -81,4 +93,6 @@ const estilos = {
     
 
 }
+
+
 export default Aula03_Login

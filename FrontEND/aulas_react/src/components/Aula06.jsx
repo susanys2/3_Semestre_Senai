@@ -4,7 +4,6 @@ import { useState } from "react"
 import { estilos } from "../style/Estilos"
 import Aula06_Contador from "./Aula06_Contador"
 import Aula06_Exercicio_Placar from "./Aula06_Exercicio_Placar"
-import Aula06_Exercicio_Login from "./Aula06_Exercicio_Login"
 
 
 const Aula06 = () => {
@@ -45,7 +44,7 @@ const Aula06 = () => {
 
             <Aula06_Contador/>
             <div style={estilos.cardAula}><Aula06_Exercicio_Placar/></div>
-            <Aula06_Exercicio_Login></Aula06_Exercicio_Login>
+            
         </div>
     )
 
