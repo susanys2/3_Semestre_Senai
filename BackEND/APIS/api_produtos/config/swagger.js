@@ -366,40 +366,40 @@ const documentacao = {
                 type: "object",
                 properties: {
                     id: { type: "integer", example: 1 },
-                    nome: { type: "string", example: "Gustavo" },
-                    email: { type: "string", example: "gustavo@email.com" }
+                    nome: { type: "string", example: "Susany" },
+                    email: { type: "string", example: "susy@email.com" }
                 }
             },
             Cadastro_Usuario: {
                 type: "object",
                 properties: {
-                    nome: { type: "string", example: "Gustavo" },
-                    email: { type: "string", example: "gustavo@email.com" },
-                    senha: { type: "string", example: "2026" },
+                    nome: { type: "string", example: "Susany" },
+                    email: { type: "string", example: "susy@email.com" },
+                    senha: { type: "string", example: "123" },
                 }
             },
             Atualizacao_Usuario: {
                 type: "object",
                 properties: {
-                    nome: { type: "string", example: "Gustavo" },
-                    email: { type: "string", example: "gustavo@email.com" },
-                    senha: { type: "string", example: "2026" },
+                    nome: { type: "string", example: "Susany" },
+                    email: { type: "string", example: "susy@email.com" },
+                    senha: { type: "string", example: "123" },
                 }
             },
             Atualizacao_Parcial_Usuario: {
                 type: "object",
                 properties: {
-                    nome: { type: "string", example: "Gustavo" },
-                    email: { type: "string", example: "gustavo@email.com" },
-                    senha: { type: "string", example: "2026" },
+                    nome: { type: "string", example: "Susany" },
+                    email: { type: "string", example: "susy@email.com" },
+                    senha: { type: "string", example: "123" },
                 }
             },
             Login_Usuario: {
                 type: "object",
                 required: ["email", "senha"],
                 properties: {
-                    email: { type: "string", example: "gustavo@email.com" },
-                    senha: { type: "string", example: "2026" },
+                    email: { type: "string", example: "susy@email.com" },
+                    senha: { type: "string", example: "123" },
                 }
             },
             Resposta_Login: {
@@ -410,8 +410,8 @@ const documentacao = {
                         type: 'object',
                         properties: {
                             id_usuario: {type: 'integer', example: 1},
-                            email: { type: "string", example: "gustavo@email.com" },
-                            senha: { type: "string", example: "2026" },
+                            email: { type: "string", example: "susy@email.com" },
+                            senha: { type: "string", example: "123" },
                         }
                     }
                 }
@@ -420,22 +420,22 @@ const documentacao = {
                 type: "object",
                 properties: {
                     id_produto: { type: "integer", example: 1 },
-                    nome: { type: "string", example: "Notebook Dell" },
+                    nome: { type: "string", example: "Moranguinhos" },
                     preco: { type: "decimal", example: 3500.00 },
                     link_imagem: { type: "string", example: "site.com/imagem.jpg" },
                     link_produto: { type: "string", example: "site.com/produto" },
-                    categoria: { type: "string", example: "Eletrônicos" },
+                    categoria: { type: "string", example: "Hortifrutti" },
                     frete: { type: "boolean", example: true }
                 }
             },
             Cadastro_Produto: {
                 type: "object",
                 properties: {
-                    nome: { type: "string", example: "Notebook Dell" },
+                    nome: { type: "string", example: "Moranguinho" },
                     preco: { type: "decimal", example: 3500.00 },
                     link_imagem: { type: "string", example: "site.com/imagem.jpg" },
                     link_produto: { type: "string", example: "site.com/produto" },
-                    categoria: { type: "string", example: "Eletrônicos" },
+                    categoria: { type: "string", example: "Hostifrutti" },
                     frete: { type: "boolean", example: true }
                 }
             },
@@ -443,22 +443,22 @@ const documentacao = {
                 type: "object",
                 required: ["nome", "preco", "link_imagem", "link_produto", "categoria", "frete"],
                 properties: {
-                    nome: { type: "string", example: "Notebook Dell" },
+                    nome: { type: "string", example: "Moranguinho" },
                     preco: { type: "decimal", example: 3500.00 },
                     link_imagem: { type: "string", example: "site.com/imagem.jpg" },
                     link_produto: { type: "string", example: "site.com/produto" },
-                    categoria: { type: "string", example: "Eletrônicos" },
+                    categoria: { type: "string", example: "Hortifrutti" },
                     frete: { type: "boolean", example: true }
                 }
             },
             Atualizacao_Parcial_Produto: {
                 type: "object",
                 properties: {
-                    nome: { type: "string", example: "Notebook Dell" },
+                    nome: { type: "string", example: "Moranguinho" },
                     preco: { type: "decimal", example: 3500.00 },
                     link_imagem: { type: "string", example: "site.com/imagem.jpg" },
                     link_produto: { type: "string", example: "site.com/produto" },
-                    categoria: { type: "string", example: "Eletrônicos" },
+                    categoria: { type: "string", example: "Hortifrutti" },
                     frete: { type: "boolean", example: true }
                 }
             }

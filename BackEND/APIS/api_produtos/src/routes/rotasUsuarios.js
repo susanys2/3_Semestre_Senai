@@ -152,7 +152,7 @@ router.post('/login', async (req, res) => {
     }
     try {
         //Buscar usuário pelo email
-        const comando = `SELECT id_usuario, nome, email, senha FROM usuarios WHERE email =$1`;
+        const comando = `SELECT id_usuario, nome, email, senha FROM usuarios WHERE email = $1`;
         const resultado = await BD.query(comando, [email]);
 
         if (resultado.rows.length === 0) {
@@ -166,7 +166,7 @@ router.post('/login', async (req, res) => {
             return res.return(401).json({ message: 'Senha inválida' });
         }
 
-        returnres.status(200).json({
+        return res.status(200).json({
             message: 'Login realizado com sucesso',
             usuario: {
                 id: usuario.id_usuario,

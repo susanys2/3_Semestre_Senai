@@ -17,7 +17,7 @@ app.use('/swagger', swaggerUI.serve, swaggerUI.setup(documentacao))
 
 app.get('/', async (req, res) => {
     await testarConexao();
-    // res.status(200).json('API FUNCIONANDO ✅');
+    res.status(200).json('API FUNCIONANDO ✅');
     res.redirect('/swagger')
 });
 
