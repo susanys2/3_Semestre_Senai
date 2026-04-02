@@ -4,7 +4,7 @@ import { BD } from "../../db.js";
 const router = Router();
 
 //Criando o endpoint para listar todos os usuários
-router.get('/usuarios', async (req, res) => {
+router.get('/usuarios/:id_usuario', async (req, res) => {
     try {
         const query = `SELECT * FROM usuarios ORDER BY id_usuario`;
 

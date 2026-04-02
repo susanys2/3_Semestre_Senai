@@ -3,7 +3,7 @@ const documentacao = {
     openapi: '3.0.3',
     info: {
         title: 'API de Produtos',
-        description: 'Documentação da API de Produtos',
+        description: 'Documentação da API de gerenciamento financeiro - FinanControl',
         version: '1.0.0'
     },
     servers: [
@@ -11,6 +11,7 @@ const documentacao = {
     ],
     tags: [
         { name: 'Usuários', description: 'Operações relacionadas aos usuários' },
+        { name: 'Categorias', description: 'Operações relacionadas as categorias' },
     ],
     paths: {
         "/usuarios": {
@@ -54,6 +55,7 @@ const documentacao = {
                     }
                 }
             }
+
         },
         "/usuarios/{id_usuario}": {
             put: {
@@ -78,10 +80,11 @@ const documentacao = {
                         "application/json": {
                             schema: { $ref: "#/components/schemas/Atualizar_Usuario" },
                             example: {
-                                nome: "Ricardo Santos",
                                 email: "ricardo5@sesisp.com",
                                 senha: "senhaAtualizada",
-                                tipo_acesso: "admin"
+                                nome: "Ricardo",
+                                tipo_acesso: "Administrador",
+                                ativo: true
                             }
                         }
                     }
@@ -174,7 +177,179 @@ const documentacao = {
                     }
                 }
             }
-        }
+        },
+        "/categorias": {
+            get: {
+                tags: ["Categorias"],
+                summary: "Listar todos as categorias",
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: { $ref: '#/components/schemas/Listar_Categorias' }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            post: {
+                tags: ['Categorias'],
+                summary: 'Cadastrar nova categoria',
+                description: "Recebe nome, descricao, cor, icone, tipo, ativo para cadastrar nova categoria",
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/Cadastrar_Categoria"
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Categoria cadastrada com sucesso!"
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+                }
+            }
+        },
+        "/categorias/{id_categoria}": {
+            put: {
+                tags: ['Categorias'],
+                summary: 'Atualizar todos os dados de categorias',
+                description: 'Atualiza todos os dados de uma categoria existente, é necessário enviar todos os campos',
+                parameters: [
+                    {
+                        name: "id_categoria",
+                        in: "path",
+                        required: true,
+                        description: "ID da categoria a ser atualizado",
+                        schema: {
+                            type: 'integer',
+                            example: 1
+                        }
+                    }
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: { $ref: "#/components/schemas/Atualizar_Usuario" },
+                            example: {
+                                nome: "Área",
+                                descricao: "areazinha",
+                                cor: "rgb(255, 255, 0)",
+                                icone: "area",
+                                tipo: "2",
+                                ativo: true
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Categoria atualizada com sucesso!"
+                    },
+                    404: {
+                        description: "Categoria não encontrada",
+                        content: {
+                            "application/json": {
+                                example: { message: "Categoria não encontrada" }
+                            }
+                        }
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+
+                }
+
+            },
+            delete: {
+                tags: ['Categorias'],
+                summary: 'Remover Categoria',
+                description: 'Remove categoria existente pelo ID',
+                parameters: [
+                    {
+                        name: "id_categoria",
+                        in: "path",
+                        required: true,
+                        description: "ID da categoria a ser removido",
+                        schema: {
+                            type: 'integer',
+                            example: 1
+                        }
+                    }
+                ],
+                responses: {
+                    200: {
+                        description: "Categoria removida com sucesso!"
+                    },
+                    404: {
+                        description: "Categoria não encontrada",
+                        content: {
+                            "application/json": {
+                                example: { message: "Categoria não encontrada" }
+                            }
+                        }
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+
+                }
+            },
+
+        },
+        "/subcategorias": {
+            get: {
+                tags: ["Subcategorias"],
+                summary: "Listar todas as subcategorias",
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: { $ref: '#/components/schemas/Listar_Subcategorias' }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            post: {
+                tags: ['Subcategorias'],
+                summary: 'Cadastrar nova subcategoria',
+                description: "Recebe nome, ativo, id_categoriapara cadastrar nova subcategoria",
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/Cadastrar_Subcategoria"
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Subcategoria cadastrada com sucesso!"
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+                }
+            }
+        },
     },
     components: {
         schemas: {
@@ -182,35 +357,42 @@ const documentacao = {
                 type: 'object',
                 properties: {
                     id: { type: "integer", example: 1 },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" },
                     nome: { type: "string", example: "Ricardo" },
-                    email: { type: "string", example: "ricardo@email.com" }
+                    tipo_acesso: { type: "string", example: "Usuário" },
+                    ativo: { type: "boolean", example: false }
                 }
             },
             Cadastrar_Usuario: {
                 type: 'object',
                 properties: {
+                    id: { type: "integer", example: 1 },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" },
                     nome: { type: "string", example: "Ricardo" },
-                    email: { type: "string", example: "ricardo2@email.com" },
-                    senha: { type: "string", example: "Senha123" }
+                    tipo_acesso: { type: "string", example: "Usuário" },
+                    ativo: { type: "boolean", example: false }
                 }
             },
             Atualizar_Usuario: {
                 type: 'object',
-                required: ["nome", "email", "senha"],
+                required: ["email", "senha", "nome", "tipo_acesso", "ativo"],
                 properties: {
-                    nome: { type: "string", example: "Nina" },
-                    email: { type: "string", example: "nina@email.com" },
-                    senha: { type: "string", example: "Senha123" }
+                    id: { type: "integer", example: 1 },
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" },
+                    nome: { type: "string", example: "Ricardo" },
+                    tipo_acesso: { type: "string", example: "Usuário" },
+                    ativo: { type: "boolean", example: false }
                 }
             },
-
             Login_Usuario: {
                 type: 'object',
                 required: true,
                 properties: {
-                    nome: { type: "string", example: "Ricardo" },
-                    email: { type: "string", example: "ricardo2@email.com" },
-                    senha: { type: "string", example: "Senha123" }
+                    email: { type: "string", example: "ricardo@email.com" },
+                    senha: { type: "string", example: "123" },
                 }
             },
             Resposta_Login: {
@@ -225,7 +407,46 @@ const documentacao = {
                         }
                     }
                 }
-            }
+            },
+            Listar_Categorias: {
+                type: 'object',
+                properties: {
+                    id_categoria: { type: "integer", example: 1 },
+                    nome: { type: "string", example: "Saúde" },
+                    descricao: { type: "string", example: "Produtos para a Saúde" },
+                    cor: { type: "string", example: "#fff" },
+                    icone: { type: "string", example: "nomeIcone" },
+                    tipo: { type: "string", example: 'E' },
+                }
+            },
+            Cadastrar_Categoria: {
+                type: 'object',
+                properties: {
+                    id: { type: "integer", example: 1 },
+                    nome: { type: "string", example: "Lazer" },
+                    descricao: { type: "string", example: "Momento de lazer" },
+                    cor: { type: "string", example: "#0dfd00c6" },
+                    icone: { type: "string", example: "Lazer" },
+                    ativo: { type: "boolean", example: false }
+                }
+
+            },
+            Listar_Subcategorias: {
+                type: 'object',
+                properties: {
+                    nome: { type: "string", example: "Sub do lazer" },
+                    ativo: { type: "string", example: "momento para lazer" },
+                    id_categoria: { type: "integer", example: 2 },
+                }
+            },
+            Cadastrar_Subcategoria: {
+                type: 'object',
+                properties: {
+                    nome: { type: "string", example: "Sub do lazer" },
+                    ativo: { type: "string", example: "momento para lazer" },
+                    id_categoria: { type: "integer", example: 2 },
+                }
+            },
         }
     }
 }
