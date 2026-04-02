@@ -1,0 +1,121 @@
+/* ---- Calculadora.css ---- */
+/* Layout de duas colunas: formulário | resultados */
+
+@import url('https://fonts.googleapis.com/css2?family=Honk:MORF@15&display=swap');
+
+.calculadora-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ---- FORMULÁRIO ---- */
+.formulario-card {
+    background-color: #6d1916;
+    border: 1px solid #b83434;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.formulario-cabecalho {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #503355;
+}
+
+.formulario-cabecalho h2 {
+    margin: 0;
+    font-family: "Honk", system-ui;
+    font-optical-sizing: auto;
+    font-size: 30px;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "MORF" 15,
+        "SHLN" 50;
+}
+
+.formulario-corpo {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Campo individual: label + input */
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.campo-grupo label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #dfcc62;
+}
+
+.campo-grupo input,
+.campo-grupo select {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #475569;
+    color: #f1f5f9;
+    font-size: 1rem;
+    padding: 0.4rem 0;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+}
+
+.campo-grupo input:focus,
+.campo-grupo select:focus {
+    border-bottom-color: #FF40AF;
+}
+
+.campo-grupo select {
+    cursor: pointer;
+}
+
+.campo-grupo select option {
+    background-color: #b83434;
+    color: #f1f5f9;
+}
+
+/* Dois campos lado a lado */
+.campos-linha {
+    display: flex;
+    gap: 1rem;
+}
+
+.campos-linha .campo-grupo {
+    flex: 1;
+}
+
+/* ---- RESULTADOS ---- */
+.resultados-titulo {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    font-family: "Honk", system-ui;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "MORF" 15,
+        "SHLN" 50;
+}
+
+.resultados-descricao {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    margin: 0 0 1rem;
+}
+
+
+
+/* Responsivo: empilha em telas pequenas */
+@media (max-width: 768px) {
+    .calculadora-layout {
+        grid-template-columns: 1fr;
+    }
+}
