@@ -20,14 +20,14 @@ router.get('/subcategorias', async (req, res) => {
     }
 });
 
-router.post('/categorias', async (req, res) => {
+router.post('/subcategorias', async (req, res) => {
 
-    const { nome, descricao, cor, icone, tipo, ativo } = req.body;
+    const { nome, ativo, id_categoria } = req.body;
 
     try {
-        const comando = `INSERT INTO categorias (nome, descricao, cor, icone, tipo, ativo)
-        VALUES($1, $2, $3, $4, $5, $6)`;
-        const valores = [nome, descricao, cor, icone, tipo, ativo];
+        const comando = `INSERT INTO subcategorias (nome, ativo, id_categoria)
+        VALUES($1, $2, $3)`;
+        const valores = [nome, ativo, id_categoria];
 
         await BD.query(comando, valores);
         console.log(comando, valores);
@@ -35,53 +35,58 @@ router.post('/categorias', async (req, res) => {
         return res.status(201).json('Categoria cadastrada');
     } catch (error) {
         console.error('Erro ao cadastrado categoria', error.message);
-        return res.status(500).json({ error: 'Erro ao cadastrar categoria' });
+        return res.status(500).json({ error: 'Erro ao cadastrar subcategoria' });
     }
 });
 
-router.put('/categorias/:id_categoria', async (req, res) => {
+router.put('/subcategorias/:id_subcategoria', async (req, res) => {
 
     //Id recebido via parametro 
-    const { id_categoria } = req.params;
+    const { id_subcategoria } = req.params;
     //Dados do Usuario via corpo da pagina
-    const { nome, descricao, cor, icone, tipo, ativo } = req.body
+    const { nome, ativo, id_categoria } = req.body
 
     try {
 
         //Verificar se o usuario existe
-        const verificarCategoria = await BD.query(`SELECT * FROM categorias WHERE id_categoria = $1, [id_categoria]`);
-        if (verificarCategoria.rows.length === 0) {
-            return res.status(404).json({ message: 'Categoria não encontrada' })
+        const verificarSubcategoria = await BD.query(
+            `SELECT * FROM subcategorias WHERE id_subcategoria = $1`,
+            [id_subcategoria]
+        );
+        if (verificarSubcategoria.rows.length === 0) {
+            return res.status(404).json({ message: 'Subcategoria não encontrada' })
         }
 
         //Atualiza todos os campos da tabela(PUT substituição completa)
-        const comando = `UPDATE categoria SET nome = $1, descricao = $2, cor = $3, icone = $4, tipo = $5, ativo = $6 WHERE id_categoria = $7`;
-        const valores = [ nome, descricao, cor, icone, tipo,  ativo, id_categoria];
+        const comando = `UPDATE subcategorias SET nome = $1, ativo = $2, id_categoria = $3 WHERE id_subcategoria = $4`;
+        const valores = [nome, ativo, id_categoria, id_subcategoria];
         await BD.query(comando, valores);
 
-        return res.status(200).json('Categoria atualizada com sucesso')
+        return res.status(200).json('Subcategoria atualizada com sucesso')
     }
     catch (error) {
-        console.error('Erro ao atualizar categoria');
-        return res.status(500).json({ error: 'Erro ao atualizar categoria' });
+        console.error('Erro ao atualizar subcategoria');
+        return res.status(500).json({ error: 'Erro ao atualizar subcategorias' });
     }
 });
 
-router.delete('/categorias/:id_categoria', async (req, res) => {
+router.delete('/subcategorias/:id_subcategoria', async (req, res) => {
 
     //Id recebido via parametro 
-    const { id_categoria } = req.params;
+    const { id_subcategoria } = req.params;
 
     try {
-        const comando = `DELETE FROM categorias WHERE id_categoria = $1`
-        await BD.query(comando, [id_categoria]);
-        return res.status(200).json({ message: 'Categoria removida com sucesso' });
+        const comando = `UPDATE subcategorias SET ativo = false WHERE id_subcategoria = $1`
+        // const comando = DELETE FROM usuarios WHERE id_subcategoria = $1
+        await BD.query(comando, [id_subcategoria]);
+        return res.status(200).json({ message: 'Subcategoria desativada com sucesso' });
 
     } catch (error) {
-        console.error('Erro ao deletar Categoria', error.message);
+        console.error('Erro ao desativar Subcategoria', error.message);
         return res.status(500).json({ message: 'Erro interno no servidor' + error.message });
     }
 });
+
 
 
 

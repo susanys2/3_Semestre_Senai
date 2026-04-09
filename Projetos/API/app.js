@@ -2,6 +2,7 @@ import express from 'express';
 import rotasUsuarios from "./src/routes/rotasUsuarios.js";
 import rotasCategorias from "./src/routes/rotasCategorias.js";
 import rotasSubcategorias from "./src/routes/rotasSubcategorias.js";
+import rotasTransacoes from "./src/routes/rotasTransacoes.js";
 
 
 //Importando o Banco de Dados
@@ -26,6 +27,7 @@ app.get('/', async (req, res) => {
 app.use(rotasUsuarios);
 app.use(rotasCategorias);
 app.use(rotasSubcategorias);
+app.use(rotasTransacoes);
 app.use(cors());
 
 const porta = 3000;
