@@ -58,7 +58,7 @@ router.put('/usuarios/:id_usuario', async (req, res) => {
     try {
 
         //Verificar se o usuario existe
-        const verificarUsuario = await BD.query(`SELECT * FROM usuarios WHERE id_usuario = $1, [id_usuario]`);
+        const verificarUsuario = await BD.query(`SELECT * FROM usuarios WHERE id_usuario = $1`, [id_usuario]);
         if (verificarUsuario.rows.length === 0) {
             return res.status(404).json({ message: 'Usuário não encontrado' })
         }
@@ -69,7 +69,7 @@ router.put('/usuarios/:id_usuario', async (req, res) => {
         const senhaCriptografada = await bcrypt.hash(senha, saltRounds);
 
         //Atualiza todos os campos da tabela(PUT substituição completa)
-        const comando = `UPDATE usuarios SET email = $1, senha = $2, nome = $3, tipo_acesso = $4, ativo = $5, WHERE id_usuario = $6`;
+        const comando = `UPDATE usuarios SET email = $1, senha = $2, nome = $3, tipo_acesso = $4, ativo = $5 WHERE id_usuario = $6`;
         const valores = [email, senhaCriptografada, nome, tipo_acesso, ativo,  id_usuario];
         await BD.query(comando, valores);
 
@@ -106,7 +106,7 @@ router.post('/login', async (req, res) => {
 
     //Validação de Entrada
     if (!email || !senha) {
-        return res.return(400).json({ message: 'Email e senha são obrigatórios' });
+        return res.status(400).json({ message: 'Email e senha são obrigatórios' });
     }
     try {
         //Buscar usuário pelo email

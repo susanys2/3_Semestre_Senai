@@ -24,11 +24,11 @@ app.get('/', async (req, res) => {
 });
 
 //Utilizando Rotas
+app.use(cors());
 app.use(rotasUsuarios);
 app.use(rotasCategorias);
 app.use(rotasSubcategorias);
 app.use(rotasTransacoes);
-app.use(cors());
 
 const porta = 3000;
 app.listen(porta, () => {

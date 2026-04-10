@@ -483,7 +483,43 @@ const documentacao = {
                     }
                 }
             },
-    },
+        },
+        "/transacoes/periodo":{
+            get: {
+                tags: ["Transações"],
+                summary: "Listar transações por periodo",
+                parameters:[
+                    {
+                        name: "inicio",
+                        in: "query",
+                        required: true,
+                        description: "Data de inicio do período",
+                        schema: {type: "string", example: "10/04/2026"}
+                    },
+                    {
+                        name: "fim",
+                        in: "query",
+                        required: true,
+                        description: "Data de fim do período",
+                        schema: {type: "string", example: "13/04/2026"}
+                    }
+                ],
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: { $ref: '#/components/schemas/Listar_Transacoes' }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        }
+},
     components: {
         schemas: {
             Listar_Usuarios: {
@@ -535,7 +571,7 @@ const documentacao = {
                     usuario: {
                         type: 'object',
                         properties: {
-                            id_usuario: { type: "string", example: 1 },
+                            id_usuario: { type: "string", example: '1' },
                             nome: { type: "string", example: "Ricardo" },
                         }
                     }
@@ -621,7 +657,7 @@ const documentacao = {
         }
     }
     }
-}
+
 export default documentacao
 
 
