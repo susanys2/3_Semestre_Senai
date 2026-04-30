@@ -1,11 +1,15 @@
 import express, { Router } from "express";
 import { BD } from "../../db.js";
 import bcrypt from "bcrypt";
+import { autenticarToken } from '../middlewares/Autenticacao.js';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
+//Determinando chave secreta
+const SECRET_KEY = 'minha_chave_secreta';
 
 //Criando o endpoint para listar todos os usuários
-router.get('/usuarios', async (req, res) => {
+router.get('/usuarios', autenticarToken, async (req, res) => {
     try {
         const query = `SELECT * FROM usuarios WHERE ativo = true ORDER BY id_usuario`;
 
@@ -82,7 +86,7 @@ router.put('/usuarios/:id_usuario', async (req, res) => {
 });
 
 //Rota para DELETE -> desativa os usuários
-router.delete('/usuarios/:id_usuario', async (req, res) => {
+router.delete('/usuarios/:id_usuario', autenticarToken, async (req, res) => {
 
     //Id recebido via parametro 
     const { id_usuario } = req.params;
@@ -125,8 +129,16 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Senha inválida' });
         }
 
+        //Gerando Token para retornar e ser usado
+        const token = jwt.sign(
+            {id_usuario: usuario.id_usuario, email: usuario.email},
+            SECRET_KEY,
+            //{expires: `15m`} //Tempo para expirar o Token --- vamos colocar so quando aplicar mesmo no nosso
+        )
+
         return res.status(200).json({
             message: 'Login realizado com sucesso',
+            token: token,
             usuario: {
                 id: usuario.id_usuario,
                 nome: usuario.nome,
