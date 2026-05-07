@@ -1,13 +1,16 @@
 import { View } from 'react-native';
 import Aula01 from './src/components/Aula01';
 import Aula02 from './src/components/Aula02';
+import Aula03 from './src/components/Aula03';
+import { ScrollView } from 'react-native-web';
 
 export default function App() {
     return (
-        <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
             <Aula01/>
             <Aula02/> 
-        </View >
+            <Aula03/>  
+        </ScrollView >
     );
 }
 

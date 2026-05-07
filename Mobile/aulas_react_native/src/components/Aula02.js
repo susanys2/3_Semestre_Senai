@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import { View, Text, Image, TextInput } from 'react-native'
-import Logo from '../assets/logo.png'
-import { Button } from 'react-native-web'
+import { useState } from 'react';
+import { View, Text, Image, TextInput } from 'react-native';
+import Logo from '../assets/logo.png';
+import { Button } from 'react-native-web';
+import Hr from './Hr';
 
 export default function Aula02() {
     const [nome, setNome] = useState('')
 
     return (
         <View >
+            <Hr/>
             <Text>--------------------------------------</Text>
             <Text>Aula02 - Componentes Básicos</Text>
             <Text>Conhecendo os principais componentes do React Native</Text>
