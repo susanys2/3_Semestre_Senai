@@ -129,22 +129,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Senha inválida' });
         }
 
-        //Gerando Token para retornar e ser usado
-        const token = jwt.sign(
-            {id_usuario: usuario.id_usuario, email: usuario.email},
-            SECRET_KEY,
-            //{expires: `15m`} //Tempo para expirar o Token --- vamos colocar so quando aplicar mesmo no nosso
-        )
 
-        return res.status(200).json({
-            message: 'Login realizado com sucesso',
-            token: token,
-            usuario: {
-                id: usuario.id_usuario,
-                nome: usuario.nome,
-                email: usuario.email
-            }
-        });
 
     } catch (error) {
         console.error('Erro ao atualizar Usuário', error.message);
