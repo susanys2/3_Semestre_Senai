@@ -1,4 +1,3 @@
-
 const documentacao = {
     openapi: '3.0.3',
     info: {
@@ -521,7 +520,37 @@ const documentacao = {
                     }
                 }
             },
+        },
+        "/transacoes/total":{
+            get: {
+                tags: ["Transações"],
+                summary: "Listar todas as transações",
+                description: "Retorna a soma de todos os valores com base no tipo informado (Entrada/Saída)",
+                // security: [{bearerAuth: []}],
+                parameters: [{
+                    name: "tipo", //pegando a mesma informação que está na rota
+                    in: "query", //passar a informação pela query
+                    required: true,
+                    description: "Tipo de Transação: E para Entrada e S para Saída",
+                    schema:{ type: "string", enum: ["E", "S"] }, //o enum é como se fosse nosso select, caixa de informações
+                    example: "E"
+                }],
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: { $ref: '#/components/schemas/Total_Transacoes' }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
         }
+
 },
     components: {
         securitySchemes:{
@@ -670,6 +699,17 @@ const documentacao = {
                     nome_subcategoria: { type: "string", example: "Consulta Médica" },
                 }
             },
+            Total_Transacoes:{
+                type: "object",
+                properties:{
+                    total:{ 
+                        type: "number",
+                        fomat: "float",
+                        example: 1550.10,
+                        description: "Soma total dos valores das transações filtradas"
+                    }
+                }
+            }
         }
     }
     }

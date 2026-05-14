@@ -39,10 +39,10 @@ router.get('/transacoes', async (req, res) => {
 
 //Listar transações por período
 router.get('/transacoes/periodo', async (req, res) => {
-    const {inicio, fim} = req.query
+    const { inicio, fim } = req.query
     try {
-        if(!inicio || !fim){
-            return res.status(400).json({message: `Informe as datas de inicio e de fim`})
+        if (!inicio || !fim) {
+            return res.status(400).json({ message: `Informe as datas de inicio e de fim` })
         }
         const comando = `
                 SELECT 
@@ -75,6 +75,24 @@ router.get('/transacoes/periodo', async (req, res) => {
         res.status(500).json({ error: '❌ ERRO AO LISTAR TRANSACOES ❌' + error.message })
     }
 });
+
+//Rota soma de transações
+router.get('/transacoes/total', async (req, res) => {
+    const { tipo } = req.query; //pegar o tipo E ou S
+    try {
+        const comando = `SELECT SUM(valor) AS total 
+        FROM transacoes 
+        WHERE tipo = $1`;
+
+        const resultado = await BD.query(comando, [tipo.toUpperCase()]);
+        return res.status(200).json({
+            tipo: tipo.toUpperCase(),
+            total: resultado.rows[0].total || 0 //se tiver um valor ele retorna um, caso não, retorna 0
+        })
+    } catch (error) {
+        return res.status(500).json({ error: `Erro ao calcular o total de transações`})
+    }
+})
 
 
 export default router;
