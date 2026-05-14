@@ -1,10 +1,14 @@
 import express, { Router } from "express";
 import { BD } from "../../db.js";
+import bcrypt from "bcrypt";
+import { autenticarToken } from '../middlewares/Autenticacao.js';
+import jwt from 'jsonwebtoken';
+
 
 const router = Router();
 
 //Criando o endpoint para listar todos os usuários
-router.get('/usuarios', async (req, res) => {
+router.get('/usuarios', autenticarToken, async (req, res) => {
     try {
         const query = `SELECT * FROM usuarios ORDER BY id_usuario`;
 
@@ -67,7 +71,7 @@ router.put('/usuarios/:id_usuario', async (req, res) => {
 });
 
 //Rota para DELETE -> deletar os usuários
-router.delete('/usuarios/:id_usuario', async (req, res) => {
+router.delete('/usuarios/:id_usuario', autenticarToken, async (req, res) => {
 
     //Id recebido via parametro 
     const { id_usuario } = req.params;
