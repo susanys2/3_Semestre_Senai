@@ -4,6 +4,13 @@ import Home from './Home';
 import Cadastro from './Cadastro';
 import Relatorio from './Relatorio';
 import Grafico from './Grafico';
+import Aula01 from '../components/Aula01';
+import Aula02 from '../components/Aula02';
+import Aula03 from '../components/Aula03';
+import Aula04 from '../components/Aula04';
+import Aula05 from '../components/Aula05';
+import Aula06 from '../components/Aula06';
+import Aula07 from '../components/Aula07';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 //Criando nossa constante que cria o estilo de navegação em Stack
@@ -13,7 +20,7 @@ const Drawer = createDrawerNavigator();
 function NavDrawer() {
     return (
         // todas as telas precisam estar dentro de um NavigationContainer
-        <NavigationContainer>
+        // <NavigationContainer>
             <Drawer.Navigator
                 initialRouteName='Home' //Define qual é a tela inicial
                 screenOptions={{ //Primeira chave codigo em jv, segunda um objeto
@@ -51,10 +58,51 @@ function NavDrawer() {
                         title: 'Tela de Gráfico de Teste', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
                         drawerIcon: ({ size, color }) => <MaterialIcons name="pie-chart" size={size} color={color} /> //adicionou o icone no menu lateral
 
+                    }}/>
+                <Drawer.Screen name="Aula 01" component={Aula01} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 01', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 02" component={Aula02} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 02', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 03" component={Aula03} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 03', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 04" component={Aula04} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 04', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 05" component={Aula05} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 05', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 06" component={Aula06} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 06', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
+                    }}
+                />
+                <Drawer.Screen name="Aula 07" component={Aula07} //o que tá aqui ainda é propriedade do Screen
+                    options={{
+                        title: 'Tela da Aula 07', //conseguimos mudar o nome com o que quisemos, independente com o que está lá 
+                        drawerIcon: ({ size, color }) => <MaterialIcons name="edit-document" size={24} color="black" />
                     }}
                 />
             </Drawer.Navigator>
-        </NavigationContainer>
+        // </NavigationContainer>
     )
 }
 

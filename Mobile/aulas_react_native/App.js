@@ -17,9 +17,14 @@
 
 import NavDrawer from "./src/pages/NavDrawer";  
 import NavStack from "./src/pages/NavStack";  
-
+import NavTopTabs from "./src/pages/NavTopTabs";
+import NavBottomTabs from "./src/pages/NavBottomTabs";
 export default function App() {
     return(
-        <NavDrawer/>
+        //<NavDrawer/>
+        <NavStack/>
+        //<NavTopTabs/>
+        //<NavBottomTabs/>
+        
     )
 }
