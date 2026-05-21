@@ -3,16 +3,16 @@ import jwt from 'jsonwebtoken';
 //Assinatura do Servidor - só o servidor tem essa chave
 const SECRET_KEY = 'minha_chave_secreta'
 
-export function autenticarToken(req, res, nest){
+export function autenticarToken(req, res, next){
     const cabecalho = req.headers['authorization']
 
     //extrair o token, que por padrão vem no formato BEARER
     //bearer ihsifokijsdosjido
     //token = ihsifokijsdosjido
-    const token = cabecalho && cabecalho.split('')[1]
+    const token = cabecalho && cabecalho.split(' ')[1]
 
     //validação se o token está autorizado
-    if(token){
+    if(!token){
         return res.status(401).json({message: `Token não fornecido`})
     }
 

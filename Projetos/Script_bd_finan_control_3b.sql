@@ -1,11 +1,20 @@
+create table usuarios(
+id_usuario SERIAL PRIMARY KEY,
+nome VARCHAR(100) NOT NULL,
+email VARCHAR(150) UNIQUE NOT NULL,
+senha VARCHAR(255) NOT NULL,
+tipo_acesso VARCHAR(100) NOT NULL,
+ativo BOOLEAN DEFAULT TRUE
+);
+
 create table categorias(
-      id_categoria SERIAL primary key,
-      nome varchar(100) not null,
-      descricao TEXT not null,
-      tipo varchar(1) not null,
-      cor varchar(255),
-      icone varchar(255),
-      ativo boolean default true
+id_categoria SERIAL primary key,
+nome varchar(100) not null,
+descricao TEXT not null,
+tipo varchar(1) not null,
+cor varchar(255),
+icone varchar(255),
+ativo boolean default true
 );
 
 CREATE TABLE SUBCATEGORIAS(

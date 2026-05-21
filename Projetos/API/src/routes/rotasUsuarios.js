@@ -106,7 +106,7 @@ router.delete('/usuarios/:id_usuario', autenticarToken, async (req, res) => {
 //End Point de Login
 router.post('/login', async (req, res) => {
 
-    const {email, senha} = req.body;
+    const { email, senha } = req.body;
 
     //Validação de Entrada
     if (!email || !senha) {
@@ -125,11 +125,26 @@ router.post('/login', async (req, res) => {
         const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
 
         //Verificar Senha se são iguais
-        if (!senhaCorreta ) {
+        if (!senhaCorreta) {
             return res.status(401).json({ message: 'Senha inválida' });
         }
 
+        //Gerando token para retornar o ser usado
+        const token = jwt.sign(
+            { id_usuario: usuario.id_usuario, email: usuario.email, nome: usuario.nome },
+            SECRET_KEY,
+            // {expiresIn: '15m'} //Tempo para expirar o token 
+        );
 
+        return res.status(200).json({
+            message: 'Login realizado com sucesso',
+            token: token,
+            usuario: {
+                id: usuario.id_usuario,
+                nome: usuario.nome,
+                email: usuario.email
+            }
+        });
 
     } catch (error) {
         console.error('Erro ao atualizar Usuário', error.message);

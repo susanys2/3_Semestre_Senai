@@ -6,7 +6,8 @@ const documentacao = {
         version: '1.0.0'
     },
     servers: [
-        { url: 'http://localhost:3000', description: 'localhost' }
+        { url: 'http://localhost:3000', description: 'localhost' },
+        { url: 'https://api-delta-six-64.vercel.app', description: 'Vercel' }
     ],
     tags: [
         { name: 'Usuários', description: 'Operações relacionadas aos usuários' },
@@ -18,8 +19,8 @@ const documentacao = {
             get: {
                 tags: ["Usuários"],
                 summary: "Listar todos os usuários",
-                security:[
-                    {bearerAuth: []}
+                security: [
+                    { bearerAuth: [] }
                 ],
                 responses: {
                     200: {
@@ -463,11 +464,11 @@ const documentacao = {
                 summary: "Listar todos as transações",
                 parameters: [
                     {
-                    name: 'tipo',
-                    in: 'path',
-                    required: true,
-                    description: "tipo transação(E = Entrada / S = Saída)",
-                    schema:{type: "string", enum:["E","S"], example: "S"}
+                        name: 'tipo',
+                        in: 'path',
+                        required: true,
+                        description: "tipo transação(E = Entrada / S = Saída)",
+                        schema: { type: "string", enum: ["E", "S"], example: "S" }
 
                     }
                 ],
@@ -486,24 +487,24 @@ const documentacao = {
                 }
             },
         },
-        "/transacoes/periodo":{
+        "/transacoes/periodo": {
             get: {
                 tags: ["Transações"],
                 summary: "Listar transações por periodo",
-                parameters:[
+                parameters: [
                     {
                         name: "inicio",
                         in: "query",
                         required: true,
                         description: "Data de inicio do período",
-                        schema: {type: "string", example: "10/04/2026"}
+                        schema: { type: "string", example: "10/04/2026" }
                     },
                     {
                         name: "fim",
                         in: "query",
                         required: true,
                         description: "Data de fim do período",
-                        schema: {type: "string", example: "13/04/2026"}
+                        schema: { type: "string", example: "13/04/2026" }
                     }
                 ],
                 responses: {
@@ -521,7 +522,7 @@ const documentacao = {
                 }
             },
         },
-        "/transacoes/total":{
+        "/transacoes/total": {
             get: {
                 tags: ["Transações"],
                 summary: "Listar todas as transações",
@@ -532,7 +533,7 @@ const documentacao = {
                     in: "query", //passar a informação pela query
                     required: true,
                     description: "Tipo de Transação: E para Entrada e S para Saída",
-                    schema:{ type: "string", enum: ["E", "S"] }, //o enum é como se fosse nosso select, caixa de informações
+                    schema: { type: "string", enum: ["E", "S"] }, //o enum é como se fosse nosso select, caixa de informações
                     example: "E"
                 }],
                 responses: {
@@ -549,14 +550,77 @@ const documentacao = {
                     }
                 }
             },
-        }
+        },
+        "/dashboard/categorias": {
+            get: {
+                tags: ["Dashboards"],
+                summary: "Total de gastos por categoria",
+                description: "Retorna a soma das saídas agrupadas por categoria, para o gráfco",
+                // security: [{bearerAuth: []}],
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            nome: { type: "string", example: "Alimentação" },
+                                            total: { type: "number", example: 1250.00 },
 
-},
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    500: {
+                        description: `Erro interno no servidor`
+                    }
+                }
+            },
+        },
+        "/dashboard/maiores-gastos": {
+            get: {
+                tags: ["Dashboards"],
+                summary: "Top 5 maiores despesas",
+                description: "Retornas as 5 maiores despesas",
+                // security: [{bearerAuth: []}],
+                responses: {
+                    200: {
+                        description: "Dados obtidos com sucesso!",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            descricao: { type: "string", example: "Aluguel de escritório" },
+                                            valor: { type: "number", example: 2500},
+                                            data_registro: { type: "string", format: 'data_time', example: "15/05/2026" },
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    500: {
+                        description: `Erro interno no servidor`
+                    }
+                }
+            },
+        },
+
+    },
     components: {
-        securitySchemes:{
-            bearerAuth:{
+        securitySchemes: {
+            bearerAuth: {
                 type: 'http',
-                scheme:'bearer',
+                scheme: 'bearer',
                 bearerFormat: 'JWT',
                 description: 'Insira o Token obtido no LOGIN'
             }
@@ -576,7 +640,6 @@ const documentacao = {
             Cadastrar_Usuario: {
                 type: 'object',
                 properties: {
-                    id: { type: "integer", example: 1 },
                     email: { type: "string", example: "ricardo@email.com" },
                     senha: { type: "string", example: "123" },
                     nome: { type: "string", example: "Ricardo" },
@@ -608,7 +671,7 @@ const documentacao = {
                 type: 'object',
                 properties: {
                     message: { type: 'string', example: 'Login realizado com sucesso' },
-                    token:{
+                    token: {
                         type: 'string',
                         description: 'Token JWT gerado',
                         example: 'eyjlahjgkdjdffn...'
@@ -636,7 +699,6 @@ const documentacao = {
             Cadastrar_Categoria: {
                 type: 'object',
                 properties: {
-                    id: { type: "integer", example: 1 },
                     nome: { type: "string", example: "Lazer" },
                     descricao: { type: "string", example: "Momento de lazer" },
                     cor: { type: "string", example: "#0dfd00c6" },
@@ -694,15 +756,15 @@ const documentacao = {
                     data_registro: { type: "string", example: "09/04/2026" },
                     dat_pagamento: { type: "string", example: "09/04/2026" },
                     data_vencimento: { type: "string", example: "10/04/2026" },
-                    tipo: { type: "string",enum:["E", "S"], example: "E" },
+                    tipo: { type: "string", enum: ["E", "S"], example: "E" },
                     nome_categoria: { type: "string", example: "Saúde" },
                     nome_subcategoria: { type: "string", example: "Consulta Médica" },
                 }
             },
-            Total_Transacoes:{
+            Total_Transacoes: {
                 type: "object",
-                properties:{
-                    total:{ 
+                properties: {
+                    total: {
                         type: "number",
                         fomat: "float",
                         example: 1550.10,
@@ -712,7 +774,7 @@ const documentacao = {
             }
         }
     }
-    }
+}
 
 export default documentacao
 
