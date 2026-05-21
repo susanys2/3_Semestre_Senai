@@ -1,7 +1,7 @@
 const documentacao = {
     openapi: '3.0.3',
     info: {
-        title: 'API de Produtos',
+        title: 'API FinanControl',
         description: 'Documentação da API de gerenciamento financeiro - FinanControl',
         version: '1.0.0'
     },

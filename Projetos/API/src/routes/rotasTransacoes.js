@@ -116,52 +116,6 @@ router.get('/transacoes/total', async (req, res) => {
     }
 });
 
-//Endpoints do Dashboard
-
-
-//Transações por Categoria
-router.get(`/dashboard/categorias`, async (req, res) => {
-    try { //aqui nos estamos praticamente:
-        //“Mostre o nome de cada categoria e o total gasto 
-        // nela, considerando apenas transações de saída, 
-        // agrupando por categoria 
-        // e ordenando do maior gasto para o menor.”
-        const comando = `
-        SELECT c.nome, SUM(t.valor) AS total 
-        FROM transacoes t
-        INNER JOIN categorias c ON t.id_categoria = c.id_categoria
-        WHERE t.tipo = 'S'
-        GROUP BY c.nome 
-        ORDER BY total DESC`
-
-        const resultado = await BD.query(comando)
-        return res.status(200).json(resultado.rows)
-    } catch (error) {
-        return res.status(500).json({ error: error.message })
-
-    }
-
-});
-
-//5 maiores despesas
-router.get(`/dashboard/maiores-gastos`, async (req, res) => {
-    try {  
-        const comando = `
-        SELECT descricao, valor, TO_CHAR(data_registro, 'DD/MM/YYYY') 
-        FROM transacoes 
-        WHERE tipo = 'S'
-        ORDER BY valor DESC
-        LIMIT 5
-        `
-        const resultado = await BD.query(comando)
-        return res.status(200).json(resultado.rows)
-    } catch (error) {
-        return res.status(500).json({ error: error.message })
-
-    }
-
-});
-
 
 
 
