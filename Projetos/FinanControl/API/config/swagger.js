@@ -13,6 +13,7 @@ const documentacao = {
         { name: 'Usuários', description: 'Operações relacionadas aos usuários' },
         { name: 'Categorias', description: 'Operações relacionadas as categorias' },
         { name: 'Transações', description: 'Operações relacionadas a transacoes' },
+        { name: 'Autenticação', description: 'Operações relacionadas a autenticação' },
     ],
     paths: {
         "/usuarios": {
@@ -94,7 +95,7 @@ const documentacao = {
                     }
                 },
                 responses: {
-                    201: {
+                    200: {
                         description: "Usuário atualizado com sucesso!"
                     },
                     404: {
@@ -114,8 +115,8 @@ const documentacao = {
             },
             delete: {
                 tags: ['Usuários'],
-                summary: 'Remover Usuário',
-                description: 'Remove usuário existente pelo ID',
+                summary: 'Desativando Usuário',
+                description: 'Desativa usuário existente pelo ID',
                 parameters: [
                     {
                         name: "id_usuario",
@@ -315,7 +316,7 @@ const documentacao = {
         "/subcategorias": {
             get: {
                 tags: ["Subcategorias"],
-                summary: "Listar todas as subcategorias",
+                summary: "Listar todas as subcategorias que estão ativas",
                 responses: {
                     200: {
                         description: "Dados obtidos com sucesso!",
@@ -405,8 +406,8 @@ const documentacao = {
             },
             delete: {
                 tags: ['Subcategorias'],
-                summary: 'Remover Subcategorias',
-                description: 'Remove subcategoria existente pelo ID',
+                summary: 'Desativar Subcategorias',
+                description: 'Desativa subcategoria existente pelo ID',
                 parameters: [
                     {
                         name: "id_subcategoria",
@@ -679,7 +680,7 @@ const documentacao = {
                     usuario: {
                         type: 'object',
                         properties: {
-                            id_usuario: { type: "string", example: '1' },
+                            id: { type: "string", example: '1' },
                             nome: { type: "string", example: "Ricardo" },
                         }
                     }

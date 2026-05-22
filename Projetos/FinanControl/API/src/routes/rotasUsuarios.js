@@ -81,12 +81,12 @@ router.put('/usuarios/:id_usuario', async (req, res) => {
     }
     catch (error) {
         console.error('Erro ao atualizar usuário');
-        return res.status(500).json({ error: 'Erro ao atualizar usuarios' });
+        return res.status(500).json({ error: `Erro ao atualizar usuarios ${error.message}` });
     }
 });
 
 //Rota para DELETE -> desativa os usuários
-router.delete('/usuarios/:id_usuario', autenticarToken, async (req, res) => {
+router.delete('/usuarios/:id_usuario', async (req, res) => {
 
     //Id recebido via parametro 
     const { id_usuario } = req.params;

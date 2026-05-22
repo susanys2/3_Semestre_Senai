@@ -49,13 +49,13 @@ router.put('/categorias/:id_categoria', async (req, res) => {
     try {
 
         //Verificar se o usuario existe
-        const verificarCategoria = await BD.query(`SELECT * FROM categorias WHERE id_categoria = $1, [id_categoria]`);
+        const verificarCategoria = await BD.query(`SELECT * FROM categorias WHERE id_categoria = $1`, [id_categoria]);
         if (verificarCategoria.rows.length === 0) {
             return res.status(404).json({ message: 'Categoria não encontrada' })
         }
 
         //Atualiza todos os campos da tabela(PUT substituição completa)
-        const comando = `UPDATE categoria SET nome = $1, descricao = $2, cor = $3, icone = $4, tipo = $5, ativo = $6 WHERE id_categoria = $7`;
+        const comando = `UPDATE categorias SET nome = $1, descricao = $2, cor = $3, icone = $4, tipo = $5, ativo = $6 WHERE id_categoria = $7`;
         const valores = [ nome, descricao, cor, icone, tipo,  ativo, id_categoria];
         await BD.query(comando, valores);
 
@@ -63,7 +63,7 @@ router.put('/categorias/:id_categoria', async (req, res) => {
     }
     catch (error) {
         console.error('Erro ao atualizar categoria');
-        return res.status(500).json({ error: 'Erro ao atualizar categoria' });
+        return res.status(500).json({ error: `Erro ao atualizar categoria ${error.message}` });
     }
 });
 
