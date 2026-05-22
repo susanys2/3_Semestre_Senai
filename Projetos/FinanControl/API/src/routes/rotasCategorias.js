@@ -35,7 +35,7 @@ router.post('/categorias', async (req, res) => {
         return res.status(201).json('Categoria cadastrada');
     } catch (error) {
         console.error('Erro ao cadastrado categoria', error.message);
-        return res.status(500).json({ error: 'Erro ao cadastrar categoria' });
+        return res.status(500).json({ error: `Erro ao cadastrar categoria ${error.message}` });
     }
 });
 

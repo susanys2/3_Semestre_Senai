@@ -37,6 +37,72 @@ router.get('/transacoes', async (req, res) => {
     }
 });
 
+//Cadastrar nova transação
+router.post('/transacoes', async (req, res) => {
+
+    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo } = req.body;
+
+    try {
+        const comando = `INSERT INTO transacoes (valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo)
+        VALUES($1, $2, $3, $4, $5, $6)`;
+        const valores = [valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo];
+
+        await BD.query(comando, valores);
+        console.log(comando, valores);
+
+        return res.status(201).json('Transação cadastrada');
+    } catch (error) {
+        console.error('Erro ao cadastrar transação', error.message);
+        return res.status(500).json({ error: `Erro ao cadastrar transação ${error.message}` });
+    }
+});
+
+//Atualizar todos os dados de transações
+router.put('/transacoes/:id_transacao', async (req, res) => {
+
+    //Id recebido via parametro 
+    const { id_transacao } = req.params;
+    //Dados do Usuario via corpo da pagina
+    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo } = req.body
+
+    try {
+
+        //Verificar se o usuario existe
+        const verificarTransacao = await BD.query(`SELECT * FROM transacoes WHERE id_transacao = $1`, [id_transacao]);
+        if (verificarTransacao.rows.length === 0) {
+            return res.status(404).json({ message: 'Transação não encontrada' })
+        }
+
+        //Atualiza todos os campos da tabela(PUT substituição completa)
+        const comando = `UPDATE transacoes SET valor = $1, descricao = $2, data_registro = $3, dat_pagamento = $4, data_vencimento = $5, tipo = $6 WHERE id_transacao = $7`;
+        const valores = [ valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_transacao];
+        await BD.query(comando, valores);
+
+        return res.status(200).json('Transação atualizada com sucesso')
+    }
+    catch (error) {
+        console.error('Erro ao atualizar transação');
+        return res.status(500).json({ error: `Erro ao atualizar transação ${error.message}` });
+    }
+});
+
+//Deletar transações
+router.delete('/transacoes/:id_transacao', async (req, res) => {
+
+    //Id recebido via parametro 
+    const { id_transacao } = req.params;
+
+    try {
+        const comando = `DELETE FROM transacoes WHERE id_transacao = $1`
+        await BD.query(comando, [id_transacao]);
+        return res.status(200).json({ message: 'Transação removida com sucesso' });
+
+    } catch (error) {
+        console.error('Erro ao deletar Categoria', error.message);
+        return res.status(500).json({ message: 'Erro interno no servidor' + error.message });
+    }
+});
+
 //Listar transações por tipo
 router.get(`/transacoes/tipo/:tipo`, async (req, res) => {
     const { tipo } = req.params; //pegar o tipo E ou S
@@ -115,8 +181,6 @@ router.get('/transacoes/total', async (req, res) => {
         return res.status(500).json({ error: `Erro ao calcular o total de transações` })
     }
 });
-
-
 
 
 

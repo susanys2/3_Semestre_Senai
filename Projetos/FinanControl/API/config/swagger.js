@@ -14,6 +14,8 @@ const documentacao = {
         { name: 'Categorias', description: 'Operações relacionadas as categorias' },
         { name: 'Transações', description: 'Operações relacionadas a transacoes' },
         { name: 'Autenticação', description: 'Operações relacionadas a autenticação' },
+        { name: 'Subcategorias', description: 'Operações relacionadas as subcategorias' }
+
     ],
     paths: {
         "/usuarios": {
@@ -458,6 +460,121 @@ const documentacao = {
                     }
                 }
             },
+            post: {
+                tags: ['Transações'],
+                summary: 'Cadastrar nova transação',
+                description: "Recebe valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo para cadastrar nova transação",
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/Cadastrar_Transacao"
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Transação cadastrada com sucesso!"
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+                }
+            }
+        },
+        "/transacoes/{id_transacao}": {
+            put: {
+                tags: ['Transações'],
+                summary: 'Atualizar todos os dados de transações',
+                description: 'Atualiza todos os dados de uma transação existente, é necessário enviar todos os campos',
+                parameters: [
+                    {
+                        name: "id_transacao",
+                        in: "path",
+                        required: true,
+                        description: "ID da transação a ser atualizada",
+                        schema: {
+                            type: 'integer',
+                            example: 1
+                        }
+                    }
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        "application/json": {
+                            schema: { $ref: "#/components/schemas/Atualizar_Transacao" },
+                            example: {
+                                "valor": 10,
+                                "descricao": "Consulta Médica",
+                                "data_registro": "09/04/2026",
+                                "dat_pagamento": "09/04/2026",
+                                "data_vencimento": "10/04/2026",
+                                "tipo": "E",
+                                "id_categoria": { type: "integer", example: 1 },
+                                "id_subcategoria": { type: "integer", example: 1 },
+                                "id_usuario": { type: "integer", example: 1 },
+
+                            }
+                        }
+                    }
+                },
+                responses: {
+                    201: {
+                        description: "Transação atualizada com sucesso!"
+                    },
+                    404: {
+                        description: "Transação não encontrada",
+                        content: {
+                            "application/json": {
+                                example: { message: "Transação não encontrada" }
+                            }
+                        }
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+
+                }
+
+            },
+            delete: {
+                tags: ['Transações'],
+                summary: 'Remover Transação',
+                description: 'Remove transação existente pelo ID',
+                parameters: [
+                    {
+                        name: "id_transacao",
+                        in: "path",
+                        required: true,
+                        description: "ID da transação a ser removida",
+                        schema: {
+                            type: 'integer',
+                            example: 1
+                        }
+                    }
+                ],
+                responses: {
+                    200: {
+                        description: "Transação removida com sucesso!"
+                    },
+                    404: {
+                        description: "Transação não encontrada",
+                        content: {
+                            "application/json": {
+                                example: { message: "Transação não encontrada" }
+                            }
+                        }
+                    },
+                    500: {
+                        description: "Erro interno no servidor"
+                    }
+
+                }
+            },
+
         },
         "/transacoes/tipo/{tipo}": {
             get: {
@@ -600,7 +717,7 @@ const documentacao = {
                                         type: "object",
                                         properties: {
                                             descricao: { type: "string", example: "Aluguel de escritório" },
-                                            valor: { type: "number", example: 2500},
+                                            valor: { type: "number", example: 2500 },
                                             data_registro: { type: "string", format: 'data_time', example: "15/05/2026" },
 
                                         }
@@ -758,8 +875,39 @@ const documentacao = {
                     dat_pagamento: { type: "string", example: "09/04/2026" },
                     data_vencimento: { type: "string", example: "10/04/2026" },
                     tipo: { type: "string", enum: ["E", "S"], example: "E" },
-                    nome_categoria: { type: "string", example: "Saúde" },
-                    nome_subcategoria: { type: "string", example: "Consulta Médica" },
+                    id_categoria: { type: "integer", example: 1 },
+                    id_subcategoria: { type: "integer", example: 1 },
+                    id_usuario: { type: "integer", example: 1 },
+                }
+            },
+            Cadastrar_Transacao: {
+                type: 'object',
+                properties: {
+                    valor: { type: "number", example: 10.00 },
+                    descricao: { type: "string", example: "Consulta Médica" },
+                    data_registro: { type: "string", example: "09/04/2026" },
+                    dat_pagamento: { type: "string", example: "09/04/2026" },
+                    data_vencimento: { type: "string", example: "10/04/2026" },
+                    tipo: { type: "string", enum: ["E", "S"], example: "E" },
+                    id_categoria: { type: "integer", example: 1 },
+                    id_subcategoria: { type: "integer", example: 1 },
+                    id_usuario: { type: "integer", example: 1 },
+                }
+            },
+            Atualizar_Transacao: {
+                type: 'object',
+                required: ["valor", "descricao", "data_registro", "dat_pagamento", "data_vencimento", "tipo", "nome_categoria", "nome_subcategoria"],
+                properties: {
+                    id: { type: "integer", example: 1 },
+                    valor: { type: "number", example: 10.00 },
+                    descricao: { type: "string", example: "Consulta Médica" },
+                    data_registro: { type: "string", example: "09/04/2026" },
+                    dat_pagamento: { type: "string", example: "09/04/2026" },
+                    data_vencimento: { type: "string", example: "10/04/2026" },
+                    tipo: { type: "string", enum: ["E", "S"], example: "E" },
+                    id_categoria: { type: "integer", example: 1 },
+                    id_subcategoria: { type: "integer", example: 1 },
+                    id_usuario: { type: "integer", example: 1 },
                 }
             },
             Total_Transacoes: {
@@ -767,7 +915,7 @@ const documentacao = {
                 properties: {
                     total: {
                         type: "number",
-                        fomat: "float",
+                        format: "float",
                         example: 1550.10,
                         description: "Soma total dos valores das transações filtradas"
                     }
