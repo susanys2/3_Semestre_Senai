@@ -821,7 +821,8 @@ const documentacao = {
                     descricao: { type: "string", example: "Momento de lazer" },
                     cor: { type: "string", example: "#0dfd00c6" },
                     icone: { type: "string", example: "Lazer" },
-                    ativo: { type: "boolean", example: false }
+                    tipo: { type: "string", example: "E" },
+                    ativo: { type: "boolean", example: true }
                 }
 
             },
@@ -874,10 +875,9 @@ const documentacao = {
                     data_registro: { type: "string", example: "09/04/2026" },
                     dat_pagamento: { type: "string", example: "09/04/2026" },
                     data_vencimento: { type: "string", example: "10/04/2026" },
-                    tipo: { type: "string", enum: ["E", "S"], example: "E" },
+                    tipo: { type: "string", example: "E" },
                     id_categoria: { type: "integer", example: 1 },
                     id_subcategoria: { type: "integer", example: 1 },
-                    id_usuario: { type: "integer", example: 1 },
                 }
             },
             Cadastrar_Transacao: {
@@ -891,7 +891,6 @@ const documentacao = {
                     tipo: { type: "string", enum: ["E", "S"], example: "E" },
                     id_categoria: { type: "integer", example: 1 },
                     id_subcategoria: { type: "integer", example: 1 },
-                    id_usuario: { type: "integer", example: 1 },
                 }
             },
             Atualizar_Transacao: {
@@ -907,7 +906,6 @@ const documentacao = {
                     tipo: { type: "string", enum: ["E", "S"], example: "E" },
                     id_categoria: { type: "integer", example: 1 },
                     id_subcategoria: { type: "integer", example: 1 },
-                    id_usuario: { type: "integer", example: 1 },
                 }
             },
             Total_Transacoes: {

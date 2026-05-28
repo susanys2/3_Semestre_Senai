@@ -20,7 +20,7 @@ router.get('/transacoes', async (req, res) => {
                     s.nome AS nome_subcategoria
                 FROM transacoes t
                 LEFT JOIN categorias c ON t.id_categoria = c.id_categoria
-                LEFT JOIN subcategorias s ON t.id_categoria = s.id_subcategoria
+                LEFT JOIN subcategorias s ON t.id_subcategoria = s.id_subcategoria
 `;
 
         //Cria uma variável para receber o retorno do SQL
@@ -40,12 +40,15 @@ router.get('/transacoes', async (req, res) => {
 //Cadastrar nova transação
 router.post('/transacoes', async (req, res) => {
 
-    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo } = req.body;
+    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_categoria,
+        id_subcategoria } = req.body;
 
     try {
-        const comando = `INSERT INTO transacoes (valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo)
-        VALUES($1, $2, $3, $4, $5, $6)`;
-        const valores = [valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo];
+        const comando = `INSERT INTO transacoes (valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_categoria,
+    id_subcategoria)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8)`;
+        const valores = [valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_categoria,
+            id_subcategoria];
 
         await BD.query(comando, valores);
         console.log(comando, valores);
@@ -63,7 +66,8 @@ router.put('/transacoes/:id_transacao', async (req, res) => {
     //Id recebido via parametro 
     const { id_transacao } = req.params;
     //Dados do Usuario via corpo da pagina
-    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo } = req.body
+    const { valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_categoria,
+        id_subcategoria } = req.body
 
     try {
 
@@ -74,8 +78,10 @@ router.put('/transacoes/:id_transacao', async (req, res) => {
         }
 
         //Atualiza todos os campos da tabela(PUT substituição completa)
-        const comando = `UPDATE transacoes SET valor = $1, descricao = $2, data_registro = $3, dat_pagamento = $4, data_vencimento = $5, tipo = $6 WHERE id_transacao = $7`;
-        const valores = [ valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_transacao];
+        const comando = `UPDATE transacoes SET valor = $1, descricao = $2, data_registro = $3, dat_pagamento = $4, data_vencimento = $5, tipo = $6, id_categoria = $7,
+    id_subcategoria = $8 WHERE id_transacao = $9`;
+        const valores = [valor, descricao, data_registro, dat_pagamento, data_vencimento, tipo, id_categoria,
+    id_subcategoria, id_transacao];
         await BD.query(comando, valores);
 
         return res.status(200).json('Transação atualizada com sucesso')
@@ -114,7 +120,7 @@ router.get(`/transacoes/tipo/:tipo`, async (req, res) => {
 `;
 
         const resultado = await BD.query(comando, [tipo.toUpperCase()]);
-                console.log(resultado.rows);
+        console.log(resultado.rows);
 
         return res.status(200).json(resultado.rows) //se tiver um valor ele retorna um, caso não, retorna 0
     } catch (error) {
