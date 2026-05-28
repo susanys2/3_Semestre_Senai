@@ -1,7 +1,12 @@
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Switch } from 'react-native';
 import { useState } from "react";
 import { enderecoServidor } from "../utils";
-import AsyncStorage from 'react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { LinearGradient } from "expo-linear-gradient";
+import { MaterialIcons } from "@expo/vector-icons"
+import { EstilosLogin, coresLogin } from "../styles/EstilosLogin";
+import { corFundo2, corPrincipal, Estilos } from "../styles/Estilos";
 
 export default function Login({ navigation }) {
 
@@ -9,6 +14,7 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState('ricardo@email.com');
     const [senha, setSenha] = useState('123');
     const [mensagem, setMensagem] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
 
     async function botaoEntrar() {
         //"EUuu vou controlar o que fazer com esse evento"
@@ -21,14 +27,14 @@ export default function Login({ navigation }) {
                 return; //Para a execução do código aqui, não seguindo o próximo passo
             }
             //Tudo o que digitamos no input nos recebemos aqui 
-            const Login = {
+            const dadosLogin = {
                 "email": email,
                 "senha": senha
             }                    //Estamos concatenando com nosso /Login 
             const resposta = await fetch(`${enderecoServidor}/Login`, {
                 method: 'POST',//O método do Login é ele
                 headers: { 'Content-Type': 'application/json' }, //Estamos enviando um arquivo JSON
-                body: JSON.stringify(Login) //Esse comando converte o objeto para JSON 
+                body: JSON.stringify(dadosLogin) //Esse comando converte o objeto para JSON 
             })
             if (resposta.status == 404) {
                 setMensagem(`Rota não encontrada: ${resposta.url}`)
@@ -41,7 +47,7 @@ export default function Login({ navigation }) {
                 return
             }
 
-            if (resposta.ok) { 
+            if (resposta.ok) {
                 AsyncStorage.setItem(`UsuárioLogado`, JSON.stringify(dados));
                 navigation.navigate(`MenuDrawer`);
             } else {
@@ -56,18 +62,75 @@ export default function Login({ navigation }) {
     }
 
     return (
-        <View>
-            <Text>Tela de Login</Text>
+        <View style={EstilosLogin.container}>
+            <LinearGradient
+                colors={[corFundo2, corPrincipal]}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                style={EstilosLogin.gradiente}
+            >
 
-            <Text>Email</Text>
-            <TextInput placeholder='Digite o seu Email' value={email} onChangeText={setEmail} />
+                <View style={EstilosLogin.cabecalho}>
+                    <Image source={require('../../assets/logo.png')} style={EstilosLogin.iconeLogo} />
+                    <View>
+                        <Text style={EstilosLogin.nomeApp}>FinanControl</Text>
+                        <Text style={EstilosLogin.subtituloLogin}>O seu Controle Finaneiro</Text>
+                    </View>
+                </View>
 
-            <Text>Senha</Text>
-            <TextInput placeholder='Digite a sua Senha' secureTextEntry={true} value={senha} onChangeText={setSenha} />
+                {/* View Principal */}
+                <View style={EstilosLogin.conteudoPrincipal}>
+                    <View style={EstilosLogin.formularioLogin}>
+                        <Text style={EstilosLogin.titulo} >Acesse sua conta</Text>
 
-            <Button title='Entrar' onPress={botaoEntrar} />
+                        {/* View de cada input */}
+                        <View style={EstilosLogin.grupoInput}>
+                            <MaterialIcons name='email' size={EstilosLogin.iconeInput} />
+                            <TextInput placeholder='Digite seu Email' placeholderTextColor={coresLogin.placeholder}
+                                style={EstilosLogin.input} value={email} onChangeText={setEmail}
+                                keyboardType='email-address' autoCapitalize='none'
+                            />
 
-            <Text style={{ color: '#f00' }}> {mensagem} </Text>
+                        </View>
+
+                        <View style={EstilosLogin.grupoInput}>
+                            <MaterialIcons name='lock' size={EstilosLogin.iconeInput} />
+                            <TextInput placeholder='Digite sua Senha' placeholderTextColor={coresLogin.placeholder}
+                                style={EstilosLogin.input} value={senha} onChangeText={setSenha}
+                                secureTextEntry={!mostrarSenha}
+                            />
+                            <TouchableOpacity style={EstilosLogin.alternarVisibilidade}
+                                onPress={() => setMostrarSenha(!mostrarSenha)}
+                            >
+                                <MaterialIcons
+                                    size={24} color={coresLogin.icone}
+                                    name={mostrarSenha == true ? 'visibility-off' : 'visibility'}
+                                />
+
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={EstilosLogin.entreOpcoes}>
+                            <View style={EstilosLogin.containerCheckbox}>
+                                <Switch />
+                                <Text style={EstilosLogin.rotuloCheckbox}>Lembrar-me</Text>
+                            </View>
+
+                            <Text style={EstilosLogin.esqueceuSenha}>Esqueceu a senha?</Text>
+                        </View>
+
+                        <TouchableOpacity style={EstilosLogin.botaoEntrar} onPress={botaoEntrar}>
+                            <Text style={EstilosLogin.textoBotaoEntrar}>Entrar</Text>
+                        </TouchableOpacity>
+
+                        <Text style={EstilosLogin.mensagemFeedback}>{mensagem}</Text>
+
+                    </View>
+
+                </View>
+
+            </LinearGradient>
+
         </View>
     )
 
