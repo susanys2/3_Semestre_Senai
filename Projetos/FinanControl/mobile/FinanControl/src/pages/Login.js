@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, Image, Switch } from 'react-native';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { enderecoServidor } from "../utils";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -15,6 +15,26 @@ export default function Login({ navigation }) {
     const [senha, setSenha] = useState('123');
     const [mensagem, setMensagem] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [lembar, setLembrar] = useState(false);
+
+
+    useEffect(() => {
+        async function buscarUsuario() {
+            const UsuarioLogado = await AsyncStorage.getItem(`UsuarioLogado`)
+            if (UsuarioLogado) {
+                const usuario = JSON.parse(UsuarioLogado)
+                if (Usuario.lembar == true) {
+                    navigation.navigate(`/MenuDrawer`)
+                }
+            }
+        }
+        buscarUsuario()
+    }, []);
+
+
+    function alternarVisibilidadeSenha() {
+        setMostrarSenha(!mostrarSenha)
+    }
 
     async function botaoEntrar() {
         //"EUuu vou controlar o que fazer com esse evento"
@@ -48,7 +68,7 @@ export default function Login({ navigation }) {
             }
 
             if (resposta.ok) {
-                AsyncStorage.setItem(`UsuárioLogado`, JSON.stringify(dados));
+                AsyncStorage.setItem(`UsuarioLogado`, JSON.stringify({...dados, lembar}));
                 navigation.navigate(`MenuDrawer`);
             } else {
                 setMensagem(`Email ou senha incorretos! ❌`)
@@ -112,7 +132,7 @@ export default function Login({ navigation }) {
 
                         <View style={EstilosLogin.entreOpcoes}>
                             <View style={EstilosLogin.containerCheckbox}>
-                                <Switch />
+                                <Switch value={lembar} onValueChange={setLembrar} />
                                 <Text style={EstilosLogin.rotuloCheckbox}>Lembrar-me</Text>
                             </View>
 

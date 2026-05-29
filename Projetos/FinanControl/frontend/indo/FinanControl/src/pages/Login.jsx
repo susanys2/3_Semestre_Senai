@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { enderecoServidor } from "../utils";
 import logo from "../assets/logo.png";
 import { EstilosLogin } from "../styles/EstilosLogin";
@@ -16,6 +16,19 @@ export default function Login() {
     const [mensagem, setMensagem] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [lembar, setLembrar] = useState(false);
+
+    useEffect( () => {
+        async function buscarUsuario(){
+            const usuarioLogado = await localStorage.getItem(`UsuarioLogado`)
+            if (usuarioLogado){
+                const usuario = JSON.parse(usuarioLogado)
+                if(usuario.lembar == true){
+                    navigate(`/principal`)
+                }
+            }
+        }
+        buscarUsuario()
+    }, []);
 
     //Estamos usando esse event - é para mobile
     async function botaoEntrar(event) {
@@ -51,7 +64,7 @@ export default function Login() {
 
             if (resposta.ok) {
                 //Se a resposta for ok, vamos armazenar esse Login no localStorage - para que tenhamos o token salvo!
-                localStorage.setItem(`UsuárioLogado`, JSON.stringify({...dados, lembar}));
+                localStorage.setItem(`UsuarioLogado`, JSON.stringify({...dados, lembar}));
                 navigate('/principal');
             } else {
                 setMensagem(`Email ou senha incorretos! ❌`)
@@ -107,7 +120,7 @@ export default function Login() {
                     <div style={EstilosLogin.entreOpcoes}>
                         <div style={EstilosLogin.containerCheckbox}>
                             <input type="checkbox" style={EstilosLogin.checkbox} 
-                            checked={lembar}
+                            checked={lembar} onChange={(e) => setLembrar(e.target.checked)}
                             />
                             <label>Lembrar-me</label>
                         </div>
