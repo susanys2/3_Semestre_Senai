@@ -4,14 +4,14 @@ import express from 'express';
 import { BD, testarConexao } from "./db.js";
 
 import cors from 'cors';
-import rotasJogo from "./src/routes/rotasJogo.js";
+import rotasQuiz from "./src/routes/rotasQuiz.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 
-app.use(rotasJogo);
+app.use(rotasQuiz);
 
 
 app.get('/', async (req, res) => {

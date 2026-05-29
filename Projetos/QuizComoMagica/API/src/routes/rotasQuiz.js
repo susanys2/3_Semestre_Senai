@@ -27,7 +27,8 @@ router.get(`/jogo`, async (req, res) => {
         ];
 
         return res.status(200).json({
-            imagem: perguntaSorteada.bandeira_url,
+            pergunta: perguntaSorteada.pergunta,
+            imagem: perguntaSorteada.imagem_url,
             respostaCorreta: perguntaSorteada.resposta_correta,
             opcoes: opcoes
         });

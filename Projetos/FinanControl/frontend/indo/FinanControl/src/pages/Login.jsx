@@ -15,6 +15,7 @@ export default function Login() {
     const [senha, setSenha] = useState('123');
     const [mensagem, setMensagem] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [lembar, setLembrar] = useState(false);
 
     //Estamos usando esse event - é para mobile
     async function botaoEntrar(event) {
@@ -50,7 +51,7 @@ export default function Login() {
 
             if (resposta.ok) {
                 //Se a resposta for ok, vamos armazenar esse Login no localStorage - para que tenhamos o token salvo!
-                localStorage.setItem(`UsuárioLogado`, JSON.stringify(dados));
+                localStorage.setItem(`UsuárioLogado`, JSON.stringify({...dados, lembar}));
                 navigate('/principal');
             } else {
                 setMensagem(`Email ou senha incorretos! ❌`)
@@ -105,7 +106,9 @@ export default function Login() {
 
                     <div style={EstilosLogin.entreOpcoes}>
                         <div style={EstilosLogin.containerCheckbox}>
-                            <input type="checkbox" style={EstilosLogin.checkbox} />
+                            <input type="checkbox" style={EstilosLogin.checkbox} 
+                            checked={lembar}
+                            />
                             <label>Lembrar-me</label>
                         </div>
                         <a href="#" style={EstilosLogin.esqueceuSenha}>Esqueceu a senha?</a>
